@@ -1,10 +1,15 @@
 {
-	"manifest_version": 2,
+	"manifest_version": 3,
 
-	"name": "Opera Extensions — Getting Started",
-	"description": "Sample extension for the “Making your first extension” article",
+	"name": "Amity GX - Calculator",
+	"description": "A neat little calculator doodad",
 	"version": "1.0",
-	"browser_action": {
-		"default_popup": "html/test.html"
+	"action": {
+		"default_icon": "icon.png"
+	},
+	"sidebar_action": {
+		"default_icon": "icon.png",
+		"default_title": "Algebra Balancer",
+		"default_panel": "panel.html"
 	}
 }

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "clean": "rimraf dist/",
-    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.json src/images/* dist/",
+    "copy-files": "copyfiles -u 1 src/*.* dist/",
     "build": "npm run clean && tsc && npm run copy-files"
   },
   "devDependencies": {
