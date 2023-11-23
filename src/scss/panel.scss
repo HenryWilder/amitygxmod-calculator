@@ -1,0 +1,11 @@
+:root {
+    --opera-gx-background-color-rgb: env(-opera-gx-background-color-r) env(-opera-gx-background-color-g) env(-opera-gx-background-color-b);
+    --opera-gx-background-color: rgb(var(--opera-gx-background-color-rgb));
+    --opera-gx-accent-color-rgb: env(-opera-gx-accent-color-r) env(-opera-gx-accent-color-g) env(-opera-gx-accent-color-b);
+    --opera-gx-accent-color: rgb(var(--opera-gx-accent-color-rgb));
+}
+
+body {
+    background-color: var(--opera-gx-background-color);
+    color: var(--opera-gx-accent-color);
+}

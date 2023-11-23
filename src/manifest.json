@@ -3,10 +3,10 @@
 
 	"name": "Amity GX - Calculator",
 	"description": "A neat little calculator doodad",
-	"version": "1.0",
-	"action": {
-		"default_icon": "icon.png"
+	"icons": {
+		"512": "icon.png"
 	},
+	"version": "1.0",
 	"sidebar_action": {
 		"default_icon": "icon.png",
 		"default_title": "Algebra Balancer",
