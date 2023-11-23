@@ -9,3 +9,17 @@ body {
     background-color: var(--opera-gx-background-color);
     color: var(--opera-gx-accent-color);
 }
+
+textarea#notes-section {
+    background-color: var(--opera-gx-background-color);
+    color: white; // TODO: Make theme-dependent
+    width: 100%;
+    resize: vertical;
+    border: 1px solid var(--opera-gx-accent-color);
+    font-family: monospace;
+
+    &:focus-visible {
+        outline: var(--opera-gx-accent-color) solid 1px;
+        outline-offset: 0;
+    }
+}
