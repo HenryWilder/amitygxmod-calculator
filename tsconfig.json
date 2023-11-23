@@ -1,8 +1,13 @@
 {
-    "compilerOptions": {
-      "target": "ES5",
-      "module": "CommonJS",
-      "outDir": "./dist/script"
-    },
-    "include": ["./src/script/*"]
+  "compilerOptions": {
+     "strict": true,
+     "module": "commonjs",
+     "target": "es6",
+     "esModuleInterop": true,
+     "sourceMap": true,
+     "rootDir": "src",
+     "outDir": "dist/scripts",
+     "noEmitOnError": true,
+     "typeRoots": [ "node_modules/@types" ]
   }
+}

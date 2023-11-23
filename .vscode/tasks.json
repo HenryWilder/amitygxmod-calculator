@@ -3,19 +3,12 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "Copy to dist",
-            "command": "if (!(Test-Path  dist/html)) { mkdir -p dist/html };cp src/*.* dist;cp src/html/* dist/html"
-        },
-        {
-            "type": "typescript",
-            "label": "Tsc: Build",
-            "tsconfig": "tsconfig.json",
-            "problemMatcher": "$tsc",
+            "label": "Build",
+            "command": "npm run build",
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
-            "dependsOn": ["Copy to dist"]
+            }
         }
     ]
 }

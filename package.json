@@ -1,0 +1,15 @@
+{
+  "name": "amitygxmod-calculator",
+  "version": "0.1.0",
+  "scripts": {
+    "clean": "rimraf dist/",
+    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.json src/images/* dist/",
+    "build": "npm run clean && tsc && npm run copy-files"
+  },
+  "devDependencies": {
+    "@types/copyfiles": "^2.4.4",
+    "copyfiles": "^2.4.1",
+    "rimraf": "^5.0.5",
+    "typescript": "^4.5.4"
+  }
+}
