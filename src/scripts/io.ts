@@ -70,18 +70,19 @@ abcContainer.addEventListener("input", () => {
         .filter(value => value !== "");
 
     const inputCount = values.length;
-    abcParamOptions.forEach((x, i) => {
-        markParamsDirty(x, values[i] !== currentValues[i]);
-    });
+    const changes: boolean[] = abcParamOptions.map((_, i) => values[i] !== currentValues[i]);
+    abcParamOptions.forEach((x, i) => markParamsDirty(x, changes[i]));
 
-    if (inputCount === currentInputCount) return; // Only continue if there was a change
+    const isResultIdentical: boolean = changes.every(x => !x);
+    console.log(`${values} is ${isResultIdentical ? "" : "not "}identical to ${currentValues}`);
+    toggleButtonEnabled(runCalculationsButton, inputCount !== 0 && !isResultIdentical);
+
+    if (inputCount === currentInputCount) return; // Only continue if the number of inputs changed
     currentInputCount = inputCount;
 
     [inputA.value, inputB.value, inputC.value] = [values[0] ?? "", values[1] ?? "", values[2] ?? ""];
     toggleParentVisible(inputB, inputCount >= 1);
     toggleParentVisible(inputC, inputCount >= 2);
-
-    toggleButtonEnabled(runCalculationsButton, inputCount !== 0);
 
     toggleElementVisible(resultsUnary, inputCount === 1);
     toggleElementVisible(resultsBinary, inputCount === 2);
@@ -103,9 +104,10 @@ const runCalculationsTernary = ([a, b, c]: number[]) => {
 
 runCalculationsButton.addEventListener("click", () => {
     abcParamOptions.forEach(key => markParamsDirty(key, false));
-    currentValues = [inputA, inputB, inputC].map(x => x.value);
+    currentValues = [inputA, inputB, inputC].map(x => x.value).filter(value => value !== "");
     const currentNumValues = currentValues.map(value => Number(value));
     abcParamOptions.forEach((key, index) => setParamsValues(key, "" + currentNumValues[index]));
+    toggleButtonEnabled(runCalculationsButton, false);
     switch (currentInputCount) {
         case 0: console.log("error"); break; // Shouldn't be possible when the button is disabled
         case 1: runCalculationsUnary(currentNumValues); break;
