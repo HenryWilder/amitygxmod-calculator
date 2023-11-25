@@ -105,7 +105,7 @@ runCalculationsButton.addEventListener("click", () => {
     abcParamOptions.forEach(key => markParamsDirty(key, false));
     currentValues = [inputA, inputB, inputC].map(x => x.value);
     const currentNumValues = currentValues.map(value => Number(value));
-    currentValues.forEach((value, index) => setParamsValues(abcParamOptions[index], value));
+    abcParamOptions.forEach((key, index) => setParamsValues(key, "" + currentNumValues[index]));
     switch (currentInputCount) {
         case 0: console.log("error"); break; // Shouldn't be possible when the button is disabled
         case 1: runCalculationsUnary(currentNumValues); break;
