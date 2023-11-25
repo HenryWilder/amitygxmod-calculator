@@ -1,8 +1,8 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="/dist/css/panel.css">
-    <script src="/dist/scripts/ts/math.js"></script>
-    <script src="/dist/scripts/ts/io.js" defer></script>
+    <script src="/dist/scripts/ts/algebra.js" type="module"></script>
+    <script src="/dist/scripts/ts/io.js" type="module" defer></script>
   </head>
   <body>
     <div id="top-container">
@@ -12,49 +12,97 @@
       </label>
       <div id="abc-calculate-container">
         <div id="abc-container">
-          <label>
+          <label class="a">
             A
-            <input type="number" id="input-a" placeholder="∅">
+            <input type="number" id="input-a" placeholder="&empty;">
           </label>
-          <label class="hidden">
+          <label class="b hidden">
             B
-            <input type="number" id="input-b" placeholder="∅">
+            <input type="number" id="input-b" placeholder="&empty;">
           </label>
-          <label class="hidden">
+          <label class="c hidden">
             C
-            <input type="number" id="input-c" placeholder="∅">
+            <input type="number" id="input-c" placeholder="&empty;">
           </label>
         </div>
-        <button id="run-calculations-button" type="button" disabled>ƒ</button>
+        <button id="run-calculations-button" type="button" disabled>&fnof;</button>
       </div>
       <div id="results-container">
         <div id="results-unary" class="hidden">
-          <output class="result" id="unary-quick-insights"></output>
-          <output class="result" id="unary-square"></output>
-          <output class="result" id="unary-sqrt"></output>
-          <output class="result" id="unary-factors"></output>
+          <label>
+            <output class="result" id="unary-quick-insights"></output>
+          </label>
+          <label>
+            <output class="param a"></output>&sup2; &equals;
+            <output class="result" id="unary-square"></output>
+          </label>
+          <label>
+            &Sqrt;<output class="param a"></output> &equals;
+            <output class="result" id="unary-sqrt"></output>
+          </label>
+          <label>
+            factors of <output class="param a"></output>:
+            <output class="result" id="unary-factors"></output>
+          </label>
         </div>
         <div id="results-binary" class="hidden">
-          <output class="result" id="binary-compare"></output>
-          <output class="result" id="binary-sum"></output>
-          <output class="result" id="binary-diff"></output>
-          <output class="result" id="binary-prod"></output>
-          <output class="result" id="binary-div"></output>
-          <output class="result" id="binary-rem"></output>
-          <output class="result" id="binary-pow"></output>
-          <output class="result" id="binary-gcf"></output>
-          <output class="result" id="binary-lcm"></output>
-          <output class="result" id="binary-common-factors"></output>
+          <label>
+            <output class="result" id="binary-compare"></output>
+          </label>
+          <label><output class="param a"></output> &plus;    <output class="param b"></output> &equals; <output class="result" id="binary-sum"></output></label>
+          <label><output class="param a"></output> &minus;   <output class="param b"></output> &equals; <output class="result" id="binary-diff"></output></label>
+          <label><output class="param a"></output> &times;   <output class="param b"></output> &equals; <output class="result" id="binary-prod"></output></label>
+          <label><output class="param a"></output> &divide;  <output class="param b"></output> &equals; <output class="result" id="binary-div"></output></label>
+          <label><output class="param a"></output> &percnt;  <output class="param b"></output> &equals; <output class="result" id="binary-rem"></output></label>
+          <label><output class="param a"></output> &uparrow; <output class="param b"></output> &equals; <output class="result" id="binary-pow"></output></label>
+          <label>
+            gcf of <output class="param a"></output> and <output class="param b"></output> &equals;
+            <output class="result" id="binary-gcf"></output>
+          </label>
+          <label>
+            lcm of <output class="param a"></output> and <output class="param b"></output> &equals;
+            <output class="result" id="binary-lcm"></output>
+          </label>
+          <label>
+            common factors of <output class="param a"></output> and <output class="param b"></output>:
+            <output class="result" id="binary-common-factors"></output>
+          </label>
         </div>
         <div id="results-ternary" class="hidden">
-          <output class="result" id="ternary-vector-length"></output>
-          <output class="result" id="ternary-vector-normal"></output>
-          <output class="result" id="ternary-sum"></output>
-          <output class="result" id="ternary-prod"></output>
-          <output class="result" id="ternary-gcf"></output>
-          <output class="result" id="ternary-lcm"></output>
-          <output class="result" id="ternary-polynomial"></output>
-          <output class="result" id="ternary-common-factors"></output>
+          <label>
+            &nbsp;<u>&vscr;</u>&nbsp;&nbsp;&equals;
+            <output class="result" id="ternary-vector-length"></output>
+          </label>
+          <label>
+            |<u>&vscr;</u>| &equals;
+            <output class="result" id="ternary-vector-length"></output>
+          </label>
+          <label>
+            &nbsp;<u>&#770;&vscr;</u>&nbsp;&nbsp;&equals;
+            <output class="result" id="ternary-vector-normal"></output>
+          </label>
+          <label>
+            &Sum;(<output class="param a"></output>, <output class="param b"></output>, <output class="param c"></output>) &equals;
+            <output class="result" id="ternary-sum"></output>
+          </label>
+          <label>
+            &Product;(<output class="param a"></output>, <output class="param b"></output>, <output class="param c"></output>) &equals;
+            <output class="result" id="ternary-prod"></output>
+          </label>
+          <label>
+            gcf of <output class="param a"></output>, <output class="param b"></output> and <output class="param c"></output> &equals;
+            <output class="result" id="ternary-gcf"></output>
+          </label>
+          <label>
+            lcm of <output class="param a"></output>, <output class="param b"></output> and <output class="param c"></output> &equals;
+            <output class="result" id="ternary-lcm"></output>
+          </label>
+          <label>
+            <output class="param a"></output>&xscr;&sup2; &plus; <output class="param b"></output>&xscr; &plus; <output class="param c"></output> &equals;
+            <output class="result" id="ternary-polynomial"></output>
+          </label>
+          <label><output class="result" id="ternary-common-factors"></output>
+          </label>
         </div>
       </div>
     </div>

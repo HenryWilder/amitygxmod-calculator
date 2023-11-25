@@ -2,7 +2,7 @@
     @return env(-opera-gx-#{$what}-color-#{$comp});
 }
 
-/// @param $what Either "background" or "accent"
+/// @param $what Either "background" or "accent"1
 /// @param $scale How much to multiply the color by
 /// @param $mix-with What color to mix with (usually white or black)
 /// @param $mix-amount What percent of the mix color should be in the final product
@@ -14,12 +14,18 @@
 }
 
 :root {
-    @media (prefers-color-scheme: light) {
+    @media screen and (prefers-color-scheme: light) {
         --foreground-color: black;
+        --parameter-a-color: rgb(255, 0, 0);
+        --parameter-b-color: rgb(0, 0, 255);
+        --parameter-c-color: rgb(0, 127, 0);
     }
 
-    @media (prefers-color-scheme: dark) {
+    @media screen and (prefers-color-scheme: dark) {
         --foreground-color: white;
+        --parameter-a-color: rgb(255, 64, 0);
+        --parameter-b-color: rgb(0, 127, 255);
+        --parameter-c-color: rgb(64, 206, 64);
     }
 
     --opera-gx-background-color-rgb: env(-opera-gx-background-color-r) env(-opera-gx-background-color-g) env(-opera-gx-background-color-b);
@@ -28,6 +34,10 @@
     --opera-gx-accent-color: rgb(var(--opera-gx-accent-color-rgb));
 }
 
+$parameter-a-color: var(--parameter-a-color);
+$parameter-b-color: var(--parameter-b-color);
+$parameter-c-color: var(--parameter-c-color);
+
 $foreground-color: var(--foreground-color);
 $opera-gx-background-color-rgb: var(--opera-gx-background-color-rgb);
 $opera-gx-background-color: var(--opera-gx-background-color);
@@ -35,8 +45,14 @@ $opera-gx-accent-color-rgb: var(--opera-gx-accent-color-rgb);
 $opera-gx-accent-color: var(--opera-gx-accent-color);
 
 body {
-    color: $opera-gx-accent-color;
+    color: $foreground-color;
     background-color: $opera-gx-background-color;
+}
+
+@each $class in "a", "b", "c" {
+    .#{$class} {
+        color: var(--parameter-#{$class}-color);
+    }
 }
 
 input,
@@ -54,20 +70,31 @@ button {
         outline-offset: 0;
     }
 
-    &:disabled {
+    &:disabled,
+    &::placeholder {
+        color: gray;
+    }
+}
+
+label:has(>input:placeholder-shown) {
+
+    &.a,
+    &.b,
+    &.c {
         color: gray;
     }
 }
 
 button:not(:disabled) {
     cursor: pointer;
+    background-color: opera-gx-mix("accent", 25%);
 
     &:hover {
-        background-color: opera-gx-mix("accent", 25%);
+        background-color: opera-gx-mix("accent", 50%);
     }
 
     &:active {
-        background-color: opera-gx-mix("accent", 50%);
+        background-color: opera-gx-mix("accent", 75%);
     }
 }
 
@@ -100,10 +127,23 @@ button:not(:disabled) {
     @include flex-container(column);
 }
 
-label {
+label:has(textarea, input, button) {
     font-weight: bold;
 }
 
 .hidden {
     display: none;
+}
+
+output.result {
+    display: block;
+}
+
+.dirty {
+    outline: 1px dashed gray;
+}
+
+[id^="results-"] {
+    font-family: monospace;
+    font-size: large;
 }

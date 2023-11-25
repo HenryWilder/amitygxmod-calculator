@@ -1,3 +1,5 @@
+// import * as Algebra from './algebra';
+
 const assertiveGetElementById = <T>(id: string): T => {
     const el = document.getElementById(id) as T | null;
     if (el === null) {
@@ -31,15 +33,35 @@ const resultsContainer = assertiveGetElementById<HTMLDivElement>("results-contai
 
 const runCalculationsButton = assertiveGetElementById<HTMLButtonElement>("run-calculations-button");
 
-let currentInputCount = 0;
+const abcParamOptions = ['a','b','c'] as const;
+type ABCParam = typeof abcParamOptions[number];
+
+const abcParams = Object.fromEntries(
+    abcParamOptions.map((key: ABCParam) =>
+        [key, Array.from(document.querySelectorAll<HTMLOutputElement>(`output.param.${key}`))]));
+
+const markParamsDirty = (key: ABCParam, isDirty = true) => {
+    abcParams[key].forEach(el => el.classList.toggle("dirty", isDirty));
+}
+
+const setParamsValues = (key: ABCParam, value: string) => {
+    abcParams[key].forEach(el => el.value = value);
+}
+abcParamOptions.forEach(key => setParamsValues(key, key.toUpperCase()));
+
+let currentInputCount = 0; // At time of input
+let currentValues: string[] = abcParamOptions.map(x => x.toUpperCase()); // At time of calculation
+
 abcContainer.addEventListener("input", () => {
-    let values: (string)[] = [];
-    for (const el of [inputA, inputB, inputC]) {
-        const value: string = el.value;
-        if (value !== "") values.push(value);
-    }
+    let values: string[] = [inputA, inputB, inputC]
+        .map(el => el.value)
+        .filter(value => value !== "");
 
     const inputCount = values.length;
+    abcParamOptions.forEach((x, i) => {
+        markParamsDirty(x, values[i] !== currentValues[i]);
+    });
+
     if (inputCount === currentInputCount) return; // Only continue if there was a change
     currentInputCount = inputCount;
 
@@ -54,23 +76,27 @@ abcContainer.addEventListener("input", () => {
     toggleElementVisible(resultsTernary, inputCount === 3);
 });
 
-const runCalculationsUnary = (a: number) => {
+const runCalculationsUnary = ([a]: number[]) => {
     console.log(`calculate unary for ${a}`);
 };
 
-const runCalculationsBinary = (a: number, b: number) => {
+const runCalculationsBinary = ([a, b]: number[]) => {
     console.log(`calculate binary for ${a}, ${b}`);
 };
 
-const runCalculationsTernary = (a: number, b: number, c: number) => {
+const runCalculationsTernary = ([a, b, c]: number[]) => {
     console.log(`calculate ternary for ${a}, ${b}, ${c}`);
 };
 
 runCalculationsButton.addEventListener("click", () => {
+    abcParamOptions.forEach(key => markParamsDirty(key, false));
+    currentValues = [inputA, inputB, inputC].map(x => x.value);
+    const currentNumValues = currentValues.map(value => Number(value));
+    currentValues.forEach((value, index) => setParamsValues(abcParamOptions[index], value));
     switch (currentInputCount) {
-        case 0: console.log("error"); break;
-        case 1: runCalculationsUnary(Number(inputA.value)); break;
-        case 2: runCalculationsBinary(Number(inputA.value), Number(inputB.value)); break;
-        case 3: runCalculationsTernary(Number(inputA.value), Number(inputB.value), Number(inputC.value)); break;
+        case 0: console.log("error"); break; // Shouldn't be possible when the button is disabled
+        case 1: runCalculationsUnary(currentNumValues); break;
+        case 2: runCalculationsBinary(currentNumValues); break;
+        case 3: runCalculationsTernary(currentNumValues); break;
     }
 });
