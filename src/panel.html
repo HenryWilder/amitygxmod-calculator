@@ -1,9 +1,40 @@
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="css/panel.css">
+    <link rel="stylesheet" type="text/css" href="/dist/css/panel.css">
+    <script src="/dist/scripts/ts/math.js"></script>
+    <script src="/dist/scripts/ts/io.js" defer></script>
   </head>
   <body>
-    <h1>Algebra Balancer</h1>
-    <textarea id="notes-section" autocomplete="off" autocapitalize="off" spellcheck="off"></textarea>
+    <div id="top-container">
+      <label>
+        Notes
+        <textarea id="notes-section" autocomplete="off" autocapitalize="off" spellcheck="off"></textarea>
+      </label>
+      <div id="abc-container">
+        <label>
+          A
+          <input type="number" id="input-a" placeholder="∅">
+        </label>
+        <label class="hidden">
+          B
+          <input type="number" id="input-b" placeholder="∅">
+        </label>
+        <label class="hidden">
+          C
+          <input type="number" id="input-c" placeholder="∅">
+        </label>
+      </div>
+      <div id="results-container">
+        <div id="results-unary" class="hidden">
+          unary
+        </div>
+        <div id="results-binary" class="hidden">
+          binary
+        </div>
+        <div id="results-ternary" class="hidden">
+          ternary
+        </div>
+      </div>
+    </div>
   </body>
 </html>

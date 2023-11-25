@@ -10,7 +10,8 @@ body {
     color: var(--opera-gx-accent-color);
 }
 
-textarea#notes-section {
+input,
+textarea {
     background-color: var(--opera-gx-background-color);
     color: white; // TODO: Make theme-dependent
     width: 100%;
@@ -22,4 +23,33 @@ textarea#notes-section {
         outline: var(--opera-gx-accent-color) solid 1px;
         outline-offset: 0;
     }
+}
+
+#notes-section {
+    min-height: 2.5rem;
+}
+
+#abc-container {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1ch;
+
+    // Whatever contains each input
+    & > label {
+        width: 7ch;
+    }
+}
+
+#top-container {
+    display: flex;
+    flex-flow: column;
+    gap: 1ch;
+}
+
+label {
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
 }
