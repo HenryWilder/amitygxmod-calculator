@@ -1,4 +1,4 @@
-// import * as Algebra from './algebra';
+import * as Algebra from './algebra';
 
 const assertiveGetElementById = <T>(id: string): T => {
     const el = document.getElementById(id) as T | null;
@@ -26,9 +26,20 @@ const inputB = assertiveGetElementById<HTMLInputElement>("input-b");
 const inputC = assertiveGetElementById<HTMLInputElement>("input-c");
 const abcContainer = assertiveGetElementById<HTMLInputElement>("abc-container");
 
+const toCamelCase = (str: string) => str.replace(/-([a-z])/, (_, ch: string) => ch.toUpperCase());
+
 const resultsUnary = assertiveGetElementById<HTMLDivElement>("results-unary");
+const unaryOperations = ["quick-insights", "square", "sqrt", "factors"] as const;
+const unaryResults = Object.fromEntries(unaryOperations.map(what => [toCamelCase(what), assertiveGetElementById<HTMLOutputElement>(`unary-${what}`)]));
+
 const resultsBinary = assertiveGetElementById<HTMLDivElement>("results-binary");
+const binaryOperations = ["sum", "diff", "prod", "div", "rem", "pow", "gcf", "lcm", "common-factors"] as const;
+const binaryResults = Object.fromEntries(binaryOperations.map(what => [toCamelCase(what), assertiveGetElementById<HTMLOutputElement>(`binary-${what}`)]));
+
 const resultsTernary = assertiveGetElementById<HTMLDivElement>("results-ternary");
+const ternaryOperations = ["vector-length", "vector-length", "vector-normal", "sum", "prod", "gcf", "lcm", "polynomial", "common-factors"] as const;
+const ternaryResults = Object.fromEntries(ternaryOperations.map(what => [toCamelCase(what), assertiveGetElementById<HTMLOutputElement>(`ternary-${what}`)]));
+
 const resultsContainer = assertiveGetElementById<HTMLDivElement>("results-container");
 
 const runCalculationsButton = assertiveGetElementById<HTMLButtonElement>("run-calculations-button");
@@ -47,6 +58,7 @@ const markParamsDirty = (key: ABCParam, isDirty = true) => {
 const setParamsValues = (key: ABCParam, value: string) => {
     abcParams[key].forEach(el => el.value = value);
 }
+
 abcParamOptions.forEach(key => setParamsValues(key, key.toUpperCase()));
 
 let currentInputCount = 0; // At time of input
@@ -78,6 +90,7 @@ abcContainer.addEventListener("input", () => {
 
 const runCalculationsUnary = ([a]: number[]) => {
     console.log(`calculate unary for ${a}`);
+    unaryResults.quickInsights.value = "Hello world!";
 };
 
 const runCalculationsBinary = ([a, b]: number[]) => {
