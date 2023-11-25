@@ -10,29 +10,51 @@
         Notes
         <textarea id="notes-section" autocomplete="off" autocapitalize="off" spellcheck="off"></textarea>
       </label>
-      <div id="abc-container">
-        <label>
-          A
-          <input type="number" id="input-a" placeholder="∅">
-        </label>
-        <label class="hidden">
-          B
-          <input type="number" id="input-b" placeholder="∅">
-        </label>
-        <label class="hidden">
-          C
-          <input type="number" id="input-c" placeholder="∅">
-        </label>
+      <div id="abc-calculate-container">
+        <div id="abc-container">
+          <label>
+            A
+            <input type="number" id="input-a" placeholder="∅">
+          </label>
+          <label class="hidden">
+            B
+            <input type="number" id="input-b" placeholder="∅">
+          </label>
+          <label class="hidden">
+            C
+            <input type="number" id="input-c" placeholder="∅">
+          </label>
+        </div>
+        <button id="run-calculations-button" type="button" disabled>ƒ</button>
       </div>
       <div id="results-container">
         <div id="results-unary" class="hidden">
-          unary
+          <output class="result" id="unary-quick-insights"></output>
+          <output class="result" id="unary-square"></output>
+          <output class="result" id="unary-sqrt"></output>
+          <output class="result" id="unary-factors"></output>
         </div>
         <div id="results-binary" class="hidden">
-          binary
+          <output class="result" id="binary-compare"></output>
+          <output class="result" id="binary-sum"></output>
+          <output class="result" id="binary-diff"></output>
+          <output class="result" id="binary-prod"></output>
+          <output class="result" id="binary-div"></output>
+          <output class="result" id="binary-rem"></output>
+          <output class="result" id="binary-pow"></output>
+          <output class="result" id="binary-gcf"></output>
+          <output class="result" id="binary-lcm"></output>
+          <output class="result" id="binary-common-factors"></output>
         </div>
         <div id="results-ternary" class="hidden">
-          ternary
+          <output class="result" id="ternary-vector-length"></output>
+          <output class="result" id="ternary-vector-normal"></output>
+          <output class="result" id="ternary-sum"></output>
+          <output class="result" id="ternary-prod"></output>
+          <output class="result" id="ternary-gcf"></output>
+          <output class="result" id="ternary-lcm"></output>
+          <output class="result" id="ternary-polynomial"></output>
+          <output class="result" id="ternary-common-factors"></output>
         </div>
       </div>
     </div>

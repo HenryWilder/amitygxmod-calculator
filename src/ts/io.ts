@@ -7,13 +7,17 @@ const assertiveGetElementById = <T>(id: string): T => {
     return el;
 };
 
-const toggleElement = (element: HTMLElement, isVisible: boolean) => element.classList.toggle("hidden", !isVisible);
-const hideElement = (element: HTMLElement) => toggleElement(element, false);
-const showElement = (element: HTMLElement) => toggleElement(element, true);
+const toggleElementVisible = (element: HTMLElement, isVisible: boolean) => element.classList.toggle("hidden", !isVisible);
+const hideElementVisible = (element: HTMLElement) => toggleElementVisible(element, false);
+const showElementVisible = (element: HTMLElement) => toggleElementVisible(element, true);
 
-const toggleParent = (element: HTMLElement, isVisible: boolean) => toggleElement(element.parentElement!, isVisible);
-const hideParent = (element: HTMLElement) => toggleParent(element, false);
-const showParent = (element: HTMLElement) => toggleParent(element, true);
+const toggleParentVisible = (element: HTMLElement, isVisible: boolean) => toggleElementVisible(element.parentElement!, isVisible);
+const hideParentVisible = (element: HTMLElement) => toggleParentVisible(element, false);
+const showParentVisible = (element: HTMLElement) => toggleParentVisible(element, true);
+
+const toggleButtonEnabled = (button: HTMLButtonElement, isEnabled: boolean) => button.disabled = !isEnabled;
+const disableButton = (button: HTMLButtonElement) => toggleButtonEnabled(button, false);
+const enableButton  = (button: HTMLButtonElement) => toggleButtonEnabled(button, true);
 
 const inputA = assertiveGetElementById<HTMLInputElement>("input-a");
 const inputB = assertiveGetElementById<HTMLInputElement>("input-b");
@@ -25,7 +29,9 @@ const resultsBinary = assertiveGetElementById<HTMLDivElement>("results-binary");
 const resultsTernary = assertiveGetElementById<HTMLDivElement>("results-ternary");
 const resultsContainer = assertiveGetElementById<HTMLDivElement>("results-container");
 
-let lastInputCount = 0;
+const runCalculationsButton = assertiveGetElementById<HTMLButtonElement>("run-calculations-button");
+
+let currentInputCount = 0;
 abcContainer.addEventListener("input", () => {
     let values: (string)[] = [];
     for (const el of [inputA, inputB, inputC]) {
@@ -34,14 +40,37 @@ abcContainer.addEventListener("input", () => {
     }
 
     const inputCount = values.length;
-    if (inputCount === lastInputCount) return; // Only if there was a change
-    lastInputCount = inputCount;
+    if (inputCount === currentInputCount) return; // Only continue if there was a change
+    currentInputCount = inputCount;
 
     [inputA.value, inputB.value, inputC.value] = [values[0] ?? "", values[1] ?? "", values[2] ?? ""];
-    toggleParent(inputB, inputCount >= 1);
-    toggleParent(inputC, inputCount >= 2);
+    toggleParentVisible(inputB, inputCount >= 1);
+    toggleParentVisible(inputC, inputCount >= 2);
 
-    toggleElement(resultsUnary, inputCount === 1);
-    toggleElement(resultsBinary, inputCount === 2);
-    toggleElement(resultsTernary, inputCount === 3);
+    toggleButtonEnabled(runCalculationsButton, inputCount !== 0);
+
+    toggleElementVisible(resultsUnary, inputCount === 1);
+    toggleElementVisible(resultsBinary, inputCount === 2);
+    toggleElementVisible(resultsTernary, inputCount === 3);
+});
+
+const runCalculationsUnary = (a: number) => {
+    console.log(`calculate unary for ${a}`);
+};
+
+const runCalculationsBinary = (a: number, b: number) => {
+    console.log(`calculate binary for ${a}, ${b}`);
+};
+
+const runCalculationsTernary = (a: number, b: number, c: number) => {
+    console.log(`calculate ternary for ${a}, ${b}, ${c}`);
+};
+
+runCalculationsButton.addEventListener("click", () => {
+    switch (currentInputCount) {
+        case 0: console.log("error"); break;
+        case 1: runCalculationsUnary(Number(inputA.value)); break;
+        case 2: runCalculationsBinary(Number(inputA.value), Number(inputB.value)); break;
+        case 3: runCalculationsTernary(Number(inputA.value), Number(inputB.value), Number(inputC.value)); break;
+    }
 });
