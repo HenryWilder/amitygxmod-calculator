@@ -1,8 +1,7 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="/dist/css/panel.css">
-    <script src="/dist/scripts/algebra.js" type="module"></script>
-    <script src="/dist/scripts/io.js" type="module" defer></script>
+    <script src="/dist/scripts/script.js" type="module" defer></script>
   </head>
   <body>
     <div id="top-container">
@@ -30,6 +29,7 @@
       <div id="results-container">
         <div id="results-unary" class="hidden">
           <label>
+            <output class="param a"></output> is
             <output class="result" id="unary-quick-insights"></output>
           </label>
           <label>
@@ -49,6 +49,7 @@
           <label>
             <output class="result" id="binary-compare"></output>
           </label>
+          <label><output class="param a"></output> <output class="result" id="binary-comp"></output> <output class="param b"></output></label>
           <label><output class="param a"></output> &plus;    <output class="param b"></output> &equals; <output class="result" id="binary-sum"></output></label>
           <label><output class="param a"></output> &minus;   <output class="param b"></output> &equals; <output class="result" id="binary-diff"></output></label>
           <label><output class="param a"></output> &times;   <output class="param b"></output> &equals; <output class="result" id="binary-prod"></output></label>

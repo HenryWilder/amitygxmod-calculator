@@ -19,6 +19,7 @@
         --parameter-a-color: rgb(255, 0, 0);
         --parameter-b-color: rgb(0, 0, 255);
         --parameter-c-color: rgb(0, 127, 0);
+        --result-color: rgb(255, 127, 0);
     }
 
     @media screen and (prefers-color-scheme: dark) {
@@ -26,6 +27,7 @@
         --parameter-a-color: rgb(255, 64, 0);
         --parameter-b-color: rgb(0, 127, 255);
         --parameter-c-color: rgb(64, 206, 64);
+        --result-color: rgb(255, 127, 0);
     }
 
     --opera-gx-background-color-rgb: env(-opera-gx-background-color-r) env(-opera-gx-background-color-g) env(-opera-gx-background-color-b);
@@ -37,6 +39,7 @@
 $parameter-a-color: var(--parameter-a-color);
 $parameter-b-color: var(--parameter-b-color);
 $parameter-c-color: var(--parameter-c-color);
+$result-color: var(--result-color);
 
 $foreground-color: var(--foreground-color);
 $opera-gx-background-color-rgb: var(--opera-gx-background-color-rgb);
@@ -136,6 +139,10 @@ label:has(textarea, input, button) {
 }
 
 output.result {
+    color: $result-color;
+}
+
+#results-container label {
     display: block;
 }
 
@@ -143,7 +150,9 @@ output.result {
     outline: 1px dashed gray;
 }
 
-[id^="results-"] {
-    font-family: monospace;
-    font-size: large;
+#results-container {
+    font: {
+        family: monospace;
+        size: large;
+    }
 }
