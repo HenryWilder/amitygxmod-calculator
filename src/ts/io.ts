@@ -34,16 +34,14 @@ abcContainer.addEventListener("input", () => {
     }
 
     const inputCount = values.length;
-
     if (inputCount === lastInputCount) return; // Only if there was a change
+    lastInputCount = inputCount;
 
-    console.log(`Changed from ${lastInputCount} to ${inputCount}`);
-
-    inputA.value = values[0] ?? "";
-    inputB.value = values[1] ?? "";
-    inputC.value = values[2] ?? "";
+    [inputA.value, inputB.value, inputC.value] = [values[0] ?? "", values[1] ?? "", values[2] ?? ""];
     toggleParent(inputB, inputCount >= 1);
     toggleParent(inputC, inputCount >= 2);
 
-    lastInputCount = inputCount;
+    toggleElement(resultsUnary, inputCount === 1);
+    toggleElement(resultsBinary, inputCount === 2);
+    toggleElement(resultsTernary, inputCount === 3);
 });
