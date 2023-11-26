@@ -9,6 +9,6 @@
     "outDir": "dist",
     "noEmitOnError": true,
     "typeRoots": [ "node_modules/@types" ],
-    "lib": ["ES2019", "DOM"]
+    "lib": ["ESNext", "DOM"]
   }
 }

@@ -30,8 +30,28 @@ namespace Algebra {
         return product;
     };
 
-    export type Fraction = number | [number, number];
-    export const fraction = (numerator: number, denominator: number): Fraction => {
+    export interface Fraction {
+        numerator: number;
+        denominator: number;
+    }
+    export type SimplifiedFraction = Fraction | number;
+
+    export interface Radical {
+        coefficient: number;
+        radicand: number;
+    }
+    export type SimplifiedRadical = Radical | number;
+
+    export interface RadicalFraction {
+        numerator: Radical;
+        denominator: number;
+    }
+    export type SimplifiedRadicalFraction = RadicalFraction | Radical | Fraction | number;
+
+    export const isFractional = (x: any): x is Fraction | RadicalFraction => Object.hasOwn(x, 'numerator') && Object.hasOwn(x, 'denominator');
+    export const isFraction = (x: Fraction | RadicalFraction): x is Fraction => typeof x.numerator === "number";
+
+    export const fraction = (numerator: number, denominator: number): SimplifiedFraction => {
         if (denominator == 0) return Infinity;
         if (numerator % denominator === 0) return numerator / denominator;
 
@@ -41,14 +61,18 @@ namespace Algebra {
         const denominatorAbs = Math.abs(denominator);
 
         const fracGCF = gcf(numeratorAbs, denominatorAbs);
-        return [sign * numeratorAbs / fracGCF, denominatorAbs / fracGCF];
-    }
+        return {
+            numerator: sign * numeratorAbs / fracGCF,
+            denominator: denominatorAbs / fracGCF
+        };
+    };
 
     // mx²
-    export const MonomialProduct = (x: number, m: number) => x * x * m;
+    export const monomialProduct = (x: number, m: number): number => x * x * m;
+    export const radicalSquared = ({ coefficient, radicand }: Radical): number => monomialProduct(coefficient, radicand);
+    export const multiplyRadical = ({ coefficient, radicand }: Radical, scale: number): Radical => ({ coefficient: coefficient * scale, radicand });
 
-    export type Radical = number | [number, number];
-    export const radical = (coefficient: number, radicand: number): Radical => {
+    export const radical = (coefficient: number, radicand: number): SimplifiedRadical => {
         if (radicand <   0) return NaN; // Complex
         if (radicand === 0) return 0;
         if (radicand === 1) return coefficient;
@@ -58,25 +82,45 @@ namespace Algebra {
         if (Number.isInteger(simpleRoot))
             return coefficient * simpleRoot;
 
-        const n = MonomialProduct(coefficient, radicand);
+        const n = radicalSquared({ coefficient, radicand });
 
         // Greatest perfect square
         const gps = factors(n)
-            .map(([common, [associated]]): [number, number] => [common, associated])
-            .reduce((prev, [common, associated]) => {
-                for (const [a, b] of [[common, associated], [associated, common]]) {
-                    if (a > (prev[0] * prev[0])) {
+            .map(([common, [associated]]) => ({ coefficient: common, radicand: associated }))
+            .reduce((prev, x) => {
+                for (const [a, b] of [[x.coefficient, x.radicand], [x.radicand, x.coefficient]]) {
+                    if (a > (prev.coefficient * prev.coefficient)) {
                         const aRoot = Math.sqrt(a);
                         if (Number.isInteger(aRoot)) {
-                            return [aRoot, b];
+                            return { coefficient: aRoot, radicand: b };
                         }
                     }
                 }
                 return prev;
-            }, [1, n]);
+            }, { coefficient: 1, radicand: n });
 
         return gps; // coefficient of 1 just means radical radicand
-    }
+    };
+
+    export const radicalFraction = (numerator: Radical, denominator: number): SimplifiedRadicalFraction => {
+        const coefficient = fraction(numerator.coefficient, denominator);
+        if (isFractional(coefficient)) {
+            return {
+                numerator: {
+                    coefficient: coefficient.numerator,
+                    radicand: numerator.radicand
+                },
+                denominator: coefficient.denominator
+            } as RadicalFraction;
+        } else if (typeof coefficient === "number") {
+            return { coefficient, radicand: numerator.radicand } as Radical;
+        } else {
+            throw new Error("Not implemented");
+        }
+    };
+    export const fractionalRadical = (numerator: number, denominator: Radical): SimplifiedRadicalFraction => {
+        return radicalFraction(multiplyRadical(denominator, numerator), radicalSquared(denominator));
+    };
 
     export type FactorSet = [number, number[]][];
     export const factors = (...values: number[]): FactorSet => {
@@ -108,25 +152,54 @@ namespace Algebra {
 
     export const sumOfSquares = (v: number[]): number => dotProduct(v, v);
 
-    export const vectorLength = (v: number[]): number => Math.sqrt(sumOfSquares(v));
-    export const vectorNormal = (v: number[]): number[] => {
+    export const vectorLength = (v: number[]): SimplifiedRadical => radical(1, sumOfSquares(v));
+
+    export const vectorNormal = (v: number[]): SimplifiedRadicalFraction[] => {
         const mag = vectorLength(v);
-        return v.map(x => x / mag);
+        if (typeof mag === "number") {
+            return v.map(x => fraction(x, mag));
+        } else {
+            return v.map(x => fractionalRadical(x, mag));
+        }
     };
 
-    export const isNormalized = (v: number[]): boolean => Math.abs(vectorLength(v)) <= 0.001;
+    export const isNormalized = (v: number[]): boolean => Math.abs(sumOfSquares(v) - 1) <= 0.001;
+
     export const isPythagorean = (...values: number[]): boolean => {
         const last = values[-1];
 
         // a² + b² + c²      = 2c²
         // a² + b² + c² - c² = 2c² - c²
         // a² + b²           =  c²      (which defines pythagorean triple)
-        return sumOfSquares(values) === MonomialProduct(last, 2);
+        return sumOfSquares(values) === monomialProduct(last, 2);
     }
 }
 
-const fractionToString = (frac: Algebra.Fraction): string => (typeof frac === "number") ? `${frac}` : `${frac[0]}/${frac[1]}`;
-const radicalToString = (rad: Algebra.Radical): string => (typeof rad === "number") ? `${rad}` : `${rad[0] !== 1 ? rad[0] : ''}√${rad[1]}`;
+const fractionToString = (frac: Algebra.Fraction): string =>
+    `${frac.numerator}/${frac.denominator}`;
+
+const simplifiedFractionToString = (frac: Algebra.SimplifiedFraction): string =>
+    (typeof frac === "number") ? frac.toString() : fractionToString(frac);
+
+const radicalToString = (rad: Algebra.Radical): string =>
+    (rad.coefficient !== 1 ? rad.coefficient : '') + `√${rad.radicand}`;
+
+const simplifiedRadicalToString = (rad: Algebra.SimplifiedRadical): string =>
+    (typeof rad === "number") ? rad.toString() : radicalToString(rad);
+
+const simplifiedRadicalFractionToString = (radFrac: Algebra.SimplifiedRadicalFraction): string => {
+    if (typeof radFrac === "number") { // number
+        return radFrac.toString();
+    } else if (Algebra.isFractional(radFrac)) {
+        if (Algebra.isFraction(radFrac)) { // Fraction
+            return fractionToString(radFrac);
+        } else { // RadicalFraction
+            return `(${radicalToString(radFrac.numerator)})/${radFrac.denominator}`;
+        }
+    } else { // Radical
+        return radicalToString(radFrac);
+    }
+};
 
 // IO
 
@@ -270,7 +343,7 @@ const runCalculationsUnary = ([a]: number[]) => {
     const compositeOrPrime = Algebra.isPrime(a) ? "prime" : "composite";
     setUnaryResult("quick-insights", `an ${evenOrOdd} ${compositeOrPrime}`);
     setUnaryResult("square", Algebra.power(a, 2));
-    setUnaryResult("sqrt", radicalToString(Algebra.radical(1, a)));
+    setUnaryResult("sqrt", simplifiedRadicalToString(Algebra.radical(1, a)));
     setFactors(unaryFactors, [a], Algebra.factors(a));
 };
 
@@ -280,7 +353,7 @@ const runCalculationsBinary = ([a, b]: number[]) => {6
     setBinaryResult("sum", Algebra.sum(a, b));
     setBinaryResult("diff", Algebra.difference(a, b));
     setBinaryResult("prod", Algebra.product(a, b));
-    setBinaryResult("div", fractionToString(Algebra.fraction(a, b)));
+    setBinaryResult("div", simplifiedFractionToString(Algebra.fraction(a, b)));
     setBinaryResult("rem", Algebra.remainder(a, b));
     setBinaryResult("pow", Algebra.power(a, b));
     setBinaryResult("gcf", Algebra.gcf(a, b));
@@ -295,8 +368,8 @@ const runCalculationsTernary = ([a, b, c]: number[]) => {
     const pythagoreanTripleOrNot = Algebra.isPythagorean(a,b,c) ? "" : "not";
     setTernaryResult("quick-insights", `${normalizedVectorOrNot} vector ${pythagoreanTripleOrNot} composing a pythagorean triple`);
     setTernaryResult("vector", `(${v.join(', ')})`);
-    setTernaryResult("vector-length", Algebra.vectorLength(v));
-    setTernaryResult("vector-normal", `(${Algebra.vectorNormal(v).join(', ')})`);
+    setTernaryResult("vector-length", simplifiedRadicalToString(Algebra.vectorLength(v)));
+    setTernaryResult("vector-normal", `(${Algebra.vectorNormal(v).map(simplifiedRadicalFractionToString).join(', ')})`);
     setTernaryResult("sum", Algebra.sum(a,b,c));
     setTernaryResult("prod", Algebra.product(a,b,c));
     setTernaryResult("gcf", Algebra.gcf(a,b,c));
