@@ -1,3 +1,5 @@
+@use 'sass:list';
+
 @function opera-gx($what, $comp) {
     @return env(-opera-gx-#{$what}-color-#{$comp});
 }
@@ -13,21 +15,36 @@
     @return rgb(calc($r * $scale) calc($g * $scale) calc($b * $scale) / $opacity);
 }
 
+$foreground-color-light: black;
+$parameter-a-color-light: rgb(255, 0, 0);
+$parameter-b-color-light: rgb(0, 0, 255);
+$parameter-c-color-light: rgb(0, 127, 0);
+$result-color-light: rgb(255, 127, 0);
+
+$foreground-color-dark: white;
+$parameter-a-color-dark: rgb(255, 64, 0);
+$parameter-b-color-dark: rgb(0, 127, 255);
+$parameter-c-color-dark: rgb(64, 206, 64);
+$result-color-dark: rgb(255, 127, 0);
+
+$abc-params-light: $parameter-a-color-light $parameter-b-color-light $parameter-c-color-light;
+$abc-params-dark: $parameter-a-color-dark $parameter-b-color-dark $parameter-c-color-dark;
+
 :root {
     @media screen and (prefers-color-scheme: light) {
-        --foreground-color: black;
-        --parameter-a-color: rgb(255, 0, 0);
-        --parameter-b-color: rgb(0, 0, 255);
-        --parameter-c-color: rgb(0, 127, 0);
-        --result-color: rgb(255, 127, 0);
+        --foreground-color: #{$foreground-color-light};
+        --parameter-a-color: #{$parameter-a-color-light};
+        --parameter-b-color: #{$parameter-b-color-light};
+        --parameter-c-color: #{$parameter-c-color-light};
+        --result-color: #{$result-color-light};
     }
 
     @media screen and (prefers-color-scheme: dark) {
-        --foreground-color: white;
-        --parameter-a-color: rgb(255, 64, 0);
-        --parameter-b-color: rgb(0, 127, 255);
-        --parameter-c-color: rgb(64, 206, 64);
-        --result-color: rgb(255, 127, 0);
+        --foreground-color: #{$foreground-color-dark};
+        --parameter-a-color: #{$parameter-a-color-dark};
+        --parameter-b-color: #{$parameter-b-color-dark};
+        --parameter-c-color: #{$parameter-c-color-dark};
+        --result-color: #{$result-color-dark};
     }
 
     --opera-gx-background-color-rgb: env(-opera-gx-background-color-r) env(-opera-gx-background-color-g) env(-opera-gx-background-color-b);
@@ -64,7 +81,6 @@ button {
     background-color: $opera-gx-background-color;
     color: $foreground-color;
     width: 100%;
-    resize: vertical;
     border: 1px solid $opera-gx-accent-color;
     font-family: monospace;
 
@@ -77,6 +93,15 @@ button {
     &::placeholder {
         color: gray;
     }
+}
+
+input,
+textarea {
+    font-family: monospace;
+}
+
+textarea#notes-section {
+    resize: vertical;
 }
 
 label:has(>input:placeholder-shown) {
@@ -138,7 +163,7 @@ label:has(textarea, input, button) {
     display: none;
 }
 
-output.result {
+.result {
     color: $result-color;
 }
 
@@ -154,5 +179,69 @@ output.result {
     font: {
         family: monospace;
         size: large;
+    }
+}
+
+table.result[id$="-factors"] {
+    margin: 0.5rem 0;
+
+    border: {
+        collapse: separate;
+        spacing: 2px;
+    }
+
+    th,
+    td {
+        border: 1px solid opera-gx-mix("background", 1, 5);
+        text-align: right;
+        padding: 1px 1ch;
+    }
+
+    th {
+        background-color: opera-gx-mix("background", 1, 2);
+    }
+
+
+    @mixin themed-param-background($color-light, $color-dark, $opacity) {
+        @media (prefers-color-scheme: light) {
+            border-color: $color-light;
+            background-color: rgba($color-light, $opacity);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            border-color: $color-dark;
+            background-color: rgba($color-dark, $opacity);
+        }
+    }
+
+    th {
+
+        @for $n from 2 through 4 {
+            &:nth-child(#{$n}) {
+                $light: list.nth($abc-params-light, ($n - 1));
+                $dark: list.nth($abc-params-dark, ($n - 1));
+                @include themed-param-background($light, $dark, .25);
+            }
+        }
+    }
+
+    td {
+
+        @for $n from 2 through 4 {
+            &:nth-child(#{$n}) {
+                $light: list.nth($abc-params-light, ($n - 1));
+                $dark: list.nth($abc-params-dark, ($n - 1));
+                @include themed-param-background($light, $dark, .125);
+            }
+        }
+
+        color: $foreground-color;
+    }
+
+    background-color: rgb($foreground-color, 50%);
+
+    tr:first-child th:first-child {
+        background-color: transparent;
+        border: none;
     }
 }

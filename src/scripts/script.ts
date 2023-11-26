@@ -31,10 +31,13 @@ namespace Algebra {
         return product;
     };
 
-    export const factors = (...values: number[]): [number, number[]][] => {
+    export type FactorSet = [number, number[]][];
+
+    export const factors = (...values: number[]): FactorSet => {
         const absValues = values.map(Math.abs);
-        const factors: [number, number[]][] = [[1, values]];
-        for (let i = 2; i <= Math.min(...absValues); ++i) {
+        const factors: FactorSet = [[1, values]];
+        const isOneValue = values.length === 1;
+        for (let i = 2; (isOneValue ? i*i : i) <= Math.min(...absValues); ++i) {
             if (absValues.every(x => x % i == 0))
                 factors.push([i, values.map(x => x / i)]);
         }
@@ -43,7 +46,7 @@ namespace Algebra {
 
     export const isPrime = (n: number): boolean => {
         const absValue = Math.abs(n);
-        for (let i = 2; i < absValue; ++i) {
+        for (let i = 2; i*i < absValue; ++i) {
             if (absValue % i == 0)
                 return false;
         }
@@ -51,6 +54,29 @@ namespace Algebra {
     };
 
     export const compare = (a: number, b: number): '=' | '>' | '<' => (a === b) ? '=' : (a > b) ? '>' : '<';
+
+    export const dotProduct = (a: number[], b: number[]): number => {
+        if (a.length !== b.length) throw new Error("Cannot dot product different size arrays");
+        return sum(...a.map((a_i, i) => a_i * b[i]));
+    };
+
+    export const sumOfSquares = (v: number[]): number => dotProduct(v, v);
+
+    export const vectorLength = (v: number[]): number => Math.sqrt(sumOfSquares(v));
+    export const vectorNormal = (v: number[]): number[] => {
+        const mag = vectorLength(v);
+        return v.map(x => x / mag);
+    };
+
+    export const isNormalized = (v: number[]): boolean => Math.abs(vectorLength(v)) <= 0.001;
+    export const isPythagorean = (...values: number[]): boolean => {
+        const last = values[-1];
+
+        // a² + b² + c²      = 2c²
+        // a² + b² + c² - c² = 2c² - c²
+        // a² + b²           =  c²      (which defines pythagorean triple)
+        return sumOfSquares(values) === last * last * 2;
+    }
 }
 
 // IO
@@ -73,28 +99,29 @@ const inputB = assertiveGetElementById<HTMLInputElement>("input-b");
 const inputC = assertiveGetElementById<HTMLInputElement>("input-c");
 const abcContainer = assertiveGetElementById<HTMLInputElement>("abc-container");
 
-// const toCamelCase = (str: string) => str.replace(/-([a-z])/, (_, ch: string) => ch.toUpperCase());
-
 const resultsUnary = assertiveGetElementById<HTMLDivElement>("results-unary");
-const unaryOperations = ["quick-insights", "square", "sqrt", "factors"] as const;
+const unaryOperations = ["quick-insights", "square", "sqrt"] as const;
 const unaryResults = Object.fromEntries(unaryOperations.map(what => [what, assertiveGetElementById<HTMLOutputElement>(`unary-${what}`)]));
 type UnaryOperation = typeof unaryOperations[number];
 const setUnaryResult = (op: UnaryOperation, value: string | number) => unaryResults[op].value = value.toString();
 unaryOperations.forEach((op) => setUnaryResult(op, '?'));
+const unaryFactors = assertiveGetElementById<HTMLElement>("unary-factors");
 
 const resultsBinary = assertiveGetElementById<HTMLDivElement>("results-binary");
-const binaryOperations = ["comp", "sum", "diff", "prod", "div", "rem", "pow", "gcf", "lcm", "common-factors"] as const;
+const binaryOperations = ["comp", "sum", "diff", "prod", "div", "rem", "pow", "gcf", "lcm"] as const;
 const binaryResults = Object.fromEntries(binaryOperations.map(what => [what, assertiveGetElementById<HTMLOutputElement>(`binary-${what}`)]));
 type BinaryOperation = typeof binaryOperations[number];
 const setBinaryResult = (op: BinaryOperation, value: string | number) => binaryResults[op].value = value.toString();
 binaryOperations.forEach((op) => setBinaryResult(op, '?'));
+const binaryFactors = assertiveGetElementById<HTMLElement>("binary-common-factors");
 
 const resultsTernary = assertiveGetElementById<HTMLDivElement>("results-ternary");
-const ternaryOperations = ["vector-length", "vector-length", "vector-normal", "sum", "prod", "gcf", "lcm", "polynomial", "common-factors"] as const;
+const ternaryOperations = ["quick-insights", "vector", "vector-length", "vector-normal", "sum", "prod", "gcf", "lcm", "polynomial"] as const;
 const ternaryResults = Object.fromEntries(ternaryOperations.map(what => [what, assertiveGetElementById<HTMLOutputElement>(`ternary-${what}`)]));
 type TernaryOperation = typeof ternaryOperations[number];
 const setTernaryResult = (op: TernaryOperation, value: string | number) => ternaryResults[op].value = value.toString();
 ternaryOperations.forEach((op) => setTernaryResult(op, '?'));
+const ternaryFactors = assertiveGetElementById<HTMLElement>("ternary-common-factors");
 
 const resultsContainer = assertiveGetElementById<HTMLDivElement>("results-container");
 
@@ -116,6 +143,45 @@ const setParamsValues = (key: ABCParam, value: string) => {
 }
 
 abcParamOptions.forEach(key => setParamsValues(key, key.toUpperCase()));
+
+const setFactors = (element: HTMLElement, header: number[], factors: Algebra.FactorSet) => {
+    element.innerHTML = "";
+
+    // Header row
+    {
+        const row = document.createElement('tr');
+        element.appendChild(row);
+
+        {
+            const factorCell = document.createElement('th');
+            row.appendChild(factorCell);
+        }
+
+        for (let i = 0; i < header.length; ++i) {
+            const cell = document.createElement('th');
+            row.appendChild(cell);
+            cell.innerText = `${header[i]}`;
+            cell.classList.add(abcParamOptions[i]);
+        }
+    }
+
+    for (const factor of factors) {
+        const [fac, parts] = factor;
+        const row = document.createElement('tr');
+        element.appendChild(row);
+
+        const factorCell = document.createElement('th');
+        row.appendChild(factorCell);
+        factorCell.innerText = `${fac}`;
+        factorCell.classList.add("result");
+
+        for (let i = 0; i < parts.length; ++i) {
+            const cell = document.createElement('td');
+            row.appendChild(cell);
+            cell.innerHTML = `${parts[i]}`;
+        }
+    }
+}
 
 let currentInputCount = 0; // At time of input
 let currentValues: string[] = abcParamOptions.map(x => x.toUpperCase()); // At time of calculation
@@ -151,9 +217,10 @@ const runCalculationsUnary = ([a]: number[]) => {
     setUnaryResult("quick-insights", `an ${evenOrOdd} ${compositeOrPrime}`);
     setUnaryResult("square", Algebra.power(a, 2));
     setUnaryResult("sqrt", Algebra.root(a, 2));
+    setFactors(unaryFactors, [a], Algebra.factors(a));
 };
 
-const runCalculationsBinary = ([a, b]: number[]) => {
+const runCalculationsBinary = ([a, b]: number[]) => {6
     console.log(`calculate binary for ${a}, ${b}`);
     setBinaryResult("comp", Algebra.compare(a, b));
     setBinaryResult("sum", Algebra.sum(a, b));
@@ -164,11 +231,23 @@ const runCalculationsBinary = ([a, b]: number[]) => {
     setBinaryResult("pow", Algebra.power(a, b));
     setBinaryResult("gcf", Algebra.gcf(a, b));
     setBinaryResult("lcm", Algebra.lcm(a, b));
-    setBinaryResult("common-factors", Algebra.factors(a, b).map((x) => `${x}`).join('\n'));
+    setFactors(binaryFactors, [a,b], Algebra.factors(a, b));
 };
 
 const runCalculationsTernary = ([a, b, c]: number[]) => {
     console.log(`calculate ternary for ${a}, ${b}, ${c}`);
+    const v = [a,b,c];
+    const normalizedVectorOrNot = Algebra.isNormalized(v) ? "a unit" : "an unnormalized";
+    const pythagoreanTripleOrNot = Algebra.isPythagorean(a,b,c) ? "" : "not";
+    setTernaryResult("quick-insights", `${normalizedVectorOrNot} vector ${pythagoreanTripleOrNot} composing a pythagorean triple`);
+    setTernaryResult("vector", `(${v.join(', ')})`);
+    setTernaryResult("vector-length", Algebra.vectorLength(v));
+    setTernaryResult("vector-normal", `(${Algebra.vectorNormal(v).join(', ')})`);
+    setTernaryResult("sum", Algebra.sum(a,b,c));
+    setTernaryResult("prod", Algebra.product(a,b,c));
+    setTernaryResult("gcf", Algebra.gcf(a,b,c));
+    setTernaryResult("lcm", Algebra.lcm(a,b,c));
+    setFactors(ternaryFactors, [a,b,c], Algebra.factors(a, b, c));
 };
 
 runCalculationsButton.addEventListener("click", () => {
