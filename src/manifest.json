@@ -6,7 +6,7 @@
 	"icons": {
 		"512": "icon.png"
 	},
-	"version": "0.1",
+	"version": "0.1.1",
 	"sidebar_action": {
 		"default_icon": "icon.png",
 		"default_title": "Amity Calculator",

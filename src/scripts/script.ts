@@ -12,22 +12,32 @@ namespace Algebra {
     export const root = (value: number, base: number): number => Math.pow(value, 1/base);
 
     export const gcf = (...values: number[]): number => {
+        console.group(`Performing GCF on [${values.join(', ')}]`);
         const absValues = values.map(Math.abs);
-        for (let gcf = Math.min(...absValues); gcf > 1; --gcf) {
-            if (absValues.every(x => gcf % x === 0))
+        const startValue = Math.min(...absValues);
+        console.log(`Starting at ${startValue}`);
+        for (let gcf = startValue; gcf > 1; --gcf) {
+            if (absValues.every(x => (x % gcf) === 0)) {
+                console.log(`All parameters are evenly divisible by ${gcf}`);
+                console.groupEnd();
                 return gcf;
+            }
+            console.log(`Not all parameters are evenly divisible by ${gcf}`);
         }
+        console.log(`Parameters are not all evenly divisible by any number between ${2}-${startValue} (inclusive). GCF is 1.`);
+        console.groupEnd();
         return 1;
     };
 
     export const lcm = (...values: number[]): number => {
         const absValues = values.map(Math.abs);
-        const product = values.reduce((prev, x) => prev * x, 1);
-        for (let lcm = Math.max(...absValues); lcm < product; ++lcm) {
-            if (absValues.every(x => lcm % x == 0))
+        const prod = product(...values);
+        for (let lcm = Math.max(...absValues); lcm < prod; ++lcm) {
+            if (absValues.every(x => (lcm % x) == 0)) {
                 return lcm;
+            }
         }
-        return product;
+        return prod;
     };
 
     export interface Fraction {
@@ -61,10 +71,12 @@ namespace Algebra {
         const denominatorAbs = Math.abs(denominator);
 
         const fracGCF = gcf(numeratorAbs, denominatorAbs);
-        return {
+        const frac: Fraction = {
             numerator: sign * numeratorAbs / fracGCF,
             denominator: denominatorAbs / fracGCF
         };
+        console.log("fracGCF: " + fracGCF);
+        return frac;
     };
 
     // mx²
