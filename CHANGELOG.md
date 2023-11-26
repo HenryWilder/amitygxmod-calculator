@@ -1,9 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [Unreleased](https://github.com/HenryWilder/amitygxmod-calculator/compare/659da2f...HEAD)
+Link will be changed to a specific version tag once no longer in pre-release.
 
-## [0.1] - 2023-11-25
+## [v0.1-alpha](https://github.com/HenryWilder/amitygxmod-calculator/compare/659da2f...v0.1-alpha) - 2023-11-25
 **Note:** It was relatively easy to implement a large chunk of this due to much of the design and math code having already written (in C#) for my [AlgebraBalancer](https://github.com/HenryWilder/AlgebraBalancer) UWP application. This application is slightly more capable than the original however, due to the browser being somewhat easier to work with than UWP in certain ways.
 ### Added
 - SCSS styling
@@ -19,15 +20,19 @@ All notable changes to this project will be documented in this file.
 - Panel HTML
 - Notetaking area
 - A, B, and C number inputs
-- Colorization of parameters
-  - A: Red
-  - B: Blue
-  - C: Green
-  - Result: Bold and orange
-- Parameter colorization also apply to factor tables
-- Parameter labels turn gray when empty
-- Parameter inputs use "&empty;" for placeholder
-- Calculate ("&fnof;") button
+  - Colorization
+    - A: Red
+    - B: Blue
+    - C: Green
+    - Result: Bold and orange
+  - Colorization also apply to factor tables
+  - Labels turn gray when empty
+  - Use "&empty;" for placeholder
+  - Changed parameter references in results section have dashed, gray outlines
+  - Number of parameter inputs automatically grow/shrink depending on number of filled inputs, and shift left to fill holes
+- Calculate ("&fnof;") button for activating calculations
+  - Button is disabled when all parameters match the currently visible calculation
+  - Width scales to match the combined width of ABC-parameter inputs
 - Unary operations
   - Quick insights
     - Even/odd
@@ -65,10 +70,10 @@ All notable changes to this project will be documented in this file.
   - Radicals (`number`&Sqrt;`number`)
   - Radical Fractions (`Radical`/`number`)
 
-## [0.1.1] - 2023-11-26
+## [v0.1.1-alpha](https://github.com/HenryWilder/amitygxmod-calculator/compare/v0.1-alpha...v0.1.1-alpha) - 2023-11-26
 ### Added
 - CHANGELOG.md
 ### Fixed
 - Patched GCF always returning 1, which was also causing issues with simplifying fractions
 ### Changed
-- Switched from 0.0 versioning to more standardized 0.0.0 versioning
+- Switched from v0.0 versioning to more standardized v0.0.0 versioning
