@@ -6,10 +6,10 @@
 	"icons": {
 		"512": "icon.png"
 	},
-	"version": "1.0",
+	"version": "0.1",
 	"sidebar_action": {
 		"default_icon": "icon.png",
-		"default_title": "Algebra Balancer",
+		"default_title": "Amity Calculator",
 		"default_panel": "panel.html"
 	}
 }

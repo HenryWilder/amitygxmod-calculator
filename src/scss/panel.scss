@@ -19,7 +19,7 @@ $foreground-color-light: black;
 $parameter-a-color-light: rgb(255, 0, 0);
 $parameter-b-color-light: rgb(0, 0, 255);
 $parameter-c-color-light: rgb(0, 127, 0);
-$result-color-light: rgb(255, 127, 0);
+$result-color-light: rgb(230, 127, 0);
 
 $foreground-color-dark: white;
 $parameter-a-color-dark: rgb(255, 64, 0);
@@ -165,6 +165,7 @@ label:has(textarea, input, button) {
 
 .result {
     color: $result-color;
+    font-weight: bold;
 }
 
 #results-container label {
