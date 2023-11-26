@@ -4,7 +4,7 @@
     @return env(-opera-gx-#{$what}-color-#{$comp});
 }
 
-/// @param $what Either "background" or "accent"1
+/// @param $what Either "background" or "accent"
 /// @param $scale How much to multiply the color by
 /// @param $mix-with What color to mix with (usually white or black)
 /// @param $mix-amount What percent of the mix color should be in the final product
