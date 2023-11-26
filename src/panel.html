@@ -13,15 +13,15 @@
         <div id="abc-container">
           <label class="a">
             A
-            <input type="number" id="input-a" placeholder="&empty;">
+            <input type="number" id="input-a" step="1" placeholder="&empty;">
           </label>
           <label class="b hidden">
             B
-            <input type="number" id="input-b" placeholder="&empty;">
+            <input type="number" id="input-b" step="1" placeholder="&empty;">
           </label>
           <label class="c hidden">
             C
-            <input type="number" id="input-c" placeholder="&empty;">
+            <input type="number" id="input-c" step="1" placeholder="&empty;">
           </label>
         </div>
         <button id="run-calculations-button" type="button" disabled>&fnof;</button>
@@ -55,7 +55,7 @@
           <label><output class="param a"></output> &times;   <output class="param b"></output> &equals; <output class="result" id="binary-prod"></output></label>
           <label><output class="param a"></output> &divide;  <output class="param b"></output> &equals; <output class="result" id="binary-div"></output></label>
           <label><output class="param a"></output> &percnt;  <output class="param b"></output> &equals; <output class="result" id="binary-rem"></output></label>
-          <label><output class="param a"></output> &uparrow; <output class="param b"></output> &equals; <output class="result" id="binary-pow"></output></label>
+          <label><output class="param a"></output><sup><output class="param b"></output></sup> &equals; <output class="result" id="binary-pow"></output></label>
           <label>
             gcf of <output class="param a"></output> and <output class="param b"></output> &equals;
             <output class="result" id="binary-gcf"></output>

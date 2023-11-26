@@ -6,8 +6,7 @@ namespace Algebra {
     export const sum        = (...values: number[]): number => values.reduce((prev, x) => prev + x, 0);
     export const difference = (...values: number[]): number => values.reduce((prev, x) => prev - x);
     export const product    = (...values: number[]): number => values.reduce((prev, x) => prev * x, 1);
-    export const quotient   = (...values: number[]): number => values.reduce((prev, x) => prev / x);
-    export const remainder  = (...values: number[]): number => values.reduce((prev, x) => prev % x);
+    export const remainder  = (numerator: number, denominator: number): number => numerator % denominator;
 
     export const power = (base: number, exponent: number): number => Math.pow(base, exponent);
     export const root = (value: number, base: number): number => Math.pow(value, 1/base);
@@ -31,8 +30,55 @@ namespace Algebra {
         return product;
     };
 
-    export type FactorSet = [number, number[]][];
+    export type Fraction = number | [number, number];
+    export const fraction = (numerator: number, denominator: number): Fraction => {
+        if (denominator == 0) return Infinity;
+        if (numerator % denominator === 0) return numerator / denominator;
 
+        const sign = (numerator < 0 != denominator < 0) ? -1 : 1;
+
+        const numeratorAbs   = Math.abs(numerator);
+        const denominatorAbs = Math.abs(denominator);
+
+        const fracGCF = gcf(numeratorAbs, denominatorAbs);
+        return [sign * numeratorAbs / fracGCF, denominatorAbs / fracGCF];
+    }
+
+    // mx²
+    export const MonomialProduct = (x: number, m: number) => x * x * m;
+
+    export type Radical = number | [number, number];
+    export const radical = (coefficient: number, radicand: number): Radical => {
+        if (radicand <   0) return NaN; // Complex
+        if (radicand === 0) return 0;
+        if (radicand === 1) return coefficient;
+
+        // Simple
+        const simpleRoot = Math.sqrt(radicand);
+        if (Number.isInteger(simpleRoot))
+            return coefficient * simpleRoot;
+
+        const n = MonomialProduct(coefficient, radicand);
+
+        // Greatest perfect square
+        const gps = factors(n)
+            .map(([common, [associated]]): [number, number] => [common, associated])
+            .reduce((prev, [common, associated]) => {
+                for (const [a, b] of [[common, associated], [associated, common]]) {
+                    if (a > (prev[0] * prev[0])) {
+                        const aRoot = Math.sqrt(a);
+                        if (Number.isInteger(aRoot)) {
+                            return [aRoot, b];
+                        }
+                    }
+                }
+                return prev;
+            }, [1, n]);
+
+        return gps; // coefficient of 1 just means radical radicand
+    }
+
+    export type FactorSet = [number, number[]][];
     export const factors = (...values: number[]): FactorSet => {
         const absValues = values.map(Math.abs);
         const factors: FactorSet = [[1, values]];
@@ -75,9 +121,12 @@ namespace Algebra {
         // a² + b² + c²      = 2c²
         // a² + b² + c² - c² = 2c² - c²
         // a² + b²           =  c²      (which defines pythagorean triple)
-        return sumOfSquares(values) === last * last * 2;
+        return sumOfSquares(values) === MonomialProduct(last, 2);
     }
 }
+
+const fractionToString = (frac: Algebra.Fraction): string => (typeof frac === "number") ? `${frac}` : `${frac[0]}/${frac[1]}`;
+const radicalToString = (rad: Algebra.Radical): string => (typeof rad === "number") ? `${rad}` : `${rad[0] !== 1 ? rad[0] : ''}√${rad[1]}`;
 
 // IO
 
@@ -186,6 +235,11 @@ const setFactors = (element: HTMLElement, header: number[], factors: Algebra.Fac
 let currentInputCount = 0; // At time of input
 let currentValues: string[] = abcParamOptions.map(x => x.toUpperCase()); // At time of calculation
 
+// Disable fractional inputs
+[inputA].forEach(input => input.addEventListener("keydown", (event) => {
+    if (event.key==='.') event.preventDefault();
+}));
+
 abcContainer.addEventListener("input", () => {
     let values: string[] = [inputA, inputB, inputC]
         .map(el => el.value)
@@ -216,7 +270,7 @@ const runCalculationsUnary = ([a]: number[]) => {
     const compositeOrPrime = Algebra.isPrime(a) ? "prime" : "composite";
     setUnaryResult("quick-insights", `an ${evenOrOdd} ${compositeOrPrime}`);
     setUnaryResult("square", Algebra.power(a, 2));
-    setUnaryResult("sqrt", Algebra.root(a, 2));
+    setUnaryResult("sqrt", radicalToString(Algebra.radical(1, a)));
     setFactors(unaryFactors, [a], Algebra.factors(a));
 };
 
@@ -226,7 +280,7 @@ const runCalculationsBinary = ([a, b]: number[]) => {6
     setBinaryResult("sum", Algebra.sum(a, b));
     setBinaryResult("diff", Algebra.difference(a, b));
     setBinaryResult("prod", Algebra.product(a, b));
-    setBinaryResult("div", Algebra.quotient(a, b));
+    setBinaryResult("div", fractionToString(Algebra.fraction(a, b)));
     setBinaryResult("rem", Algebra.remainder(a, b));
     setBinaryResult("pow", Algebra.power(a, b));
     setBinaryResult("gcf", Algebra.gcf(a, b));
