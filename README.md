@@ -15,7 +15,7 @@ Its only meaningful qualities, at the time of writing, are:
 - Using a monospace font so that text can be aligned across multiple lines through the use of whitespace characters like space.
 
 # The calculator section
-![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/1eaaf2bd-e522-4a24-8cb4-0d46887074d0)
+![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/5d7d7d58-89bb-4ecf-821f-b7b164473c22)
 
 The calculator section is used for quickly performing all operations on a combination of numbers simultaneously, giving the user insights about how the numbers may relate to each other.
 
@@ -42,14 +42,16 @@ Two parameters ([binary](#binary-results)):
 Three parameters ([ternary](#ternary-results)):  
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/90c6156a-e701-4648-9a86-372d71f23041)
 
-Entering a value into a parameter activates it, and makes the next parameter available. An available, but inactive parameter has a grayed-out label and the &empty; (empty set) placeholder.  
+Entering a value into a parameter activates it, and makes the next parameter available. An available but inactive parameter has a grayed-out label and the &empty; (empty set) placeholder.  
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/9ead6d1d-1b99-4eba-b289-5e31c54e4cb7)
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/08182698-b310-444e-8f49-d9e727fd321c)
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/6ee65390-af48-48f3-a541-c54e4d55f2a0)
 
 
 ## Run calculations (&fnof;) button
-![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/dda99129-6153-49cc-a9b4-3a03b6d7621e)
+![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/dda99129-6153-49cc-a9b4-3a03b6d7621e) _(enabled)_  
+![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/cd0e91af-ba3c-4fb7-83aa-fc744ff0a62b) _(disabled)_
+
 <!-- todo: explain when the button is disabled -->
 
 ## Results section
@@ -80,6 +82,17 @@ Currently included are the following operations:
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/d1ab1fc0-aada-4239-bf88-f238a98b0491)
 
 Binary results disply all operations which can be performed on a pair of integers.
+Currently included are the following operations:
+- Comparison ($A \lt=\gt B$) (($A\lt{B};A=B;A\gt{B}$))
+- Sum ($A+B$)
+- Difference ($A-B$)
+- Product ($AB$)
+- Quotient ($\frac{A}{B}$)
+- Remainder ($A\mod{B}$)
+- Power ($A^{B}$)
+- GCF (Greatest Common Factor)
+- LCM (Least Common Multiple)
+- Common factors (first column: set of positive integers that multiply by the second column (red) to make $A$, and the third column (blue) to make $B$)
 
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/a14b1912-8246-4442-a7ec-ff99ad83ae5b)
 
@@ -88,5 +101,7 @@ Binary results disply all operations which can be performed on a pair of integer
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/c45a7d29-beba-48d1-a97d-56a04893961f)
 
 Ternary results disply all operations which can be performed on a triplet of integers.
+Currently included are the following operations:
+- 
 
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/c0189dff-2427-4bd4-8ba3-da2b77ebf013)
