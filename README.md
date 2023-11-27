@@ -9,7 +9,7 @@ The extension currently has two sections:
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/88530bd4-71e2-4cc8-8b13-e71af0bda4e9)
 
 The notes section is a textarea for users to type notes into.
-Its only meaningful qualities, at the time of writing, are:
+Its only notable qualities are:
 - Being vertically resizeable.
 - Horizontally scaling to fit the width of the entire panel.
 - Using a monospace font so that text can be aligned across multiple lines through the use of whitespace characters like space.
@@ -91,7 +91,7 @@ Currently included are the following operations:
 
 Binary results disply all operations which can be performed on a pair of integers.
 Currently included are the following operations:
-- Comparison $(A \lt=\gt B)$ ($(A\lt{B};A=B;A\gt{B})$)
+- Comparison $(A \lt=\gt B)$ $((A\lt{B};A=B;A\gt{B}))$
 - Sum $(A+B)$
 - Difference $(A-B)$
 - Product $(AB)$
