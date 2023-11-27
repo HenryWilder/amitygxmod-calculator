@@ -250,7 +250,7 @@ binaryOperations.forEach((op) => setBinaryResult(op, '?'));
 const binaryFactors = assertiveGetElementById<HTMLElement>("binary-common-factors");
 
 const resultsTernary = assertiveGetElementById<HTMLDivElement>("results-ternary");
-const ternaryOperations = ["quick-insights", "vector", "vector-length", "vector-normal", "sum", "prod", "gcf", "lcm", "polynomial"] as const;
+const ternaryOperations = ["quick-insights", "vector", "vector-length", "vector-normal", "sum", "prod", "gcf", "lcm", "quadratic"] as const;
 const ternaryResults = Object.fromEntries(ternaryOperations.map(what => [what, assertiveGetElementById<HTMLOutputElement>(`ternary-${what}`)]));
 type TernaryOperation = typeof ternaryOperations[number];
 const setTernaryResult = (op: TernaryOperation, value: string | number) => ternaryResults[op].value = value.toString();
