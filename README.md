@@ -121,6 +121,13 @@ Currently included are the following operations:
 - GCF (Greatest Common Factor)
 - LCM (Least Common Multiple)
 - Quadratic formula $(\frac{-B\pm\sqrt{B^{2}-4AC}}{2A})$ &mdash; **not yet implemented**
-- Common factors (the set of positive integers that multiply by the $A$ column (second; red) to make $A$, the $B$ column (third; blue) to make $B$, and the $C$ column (fourth; green) to make $C$)
+- Common factors
+  | factor | $A$ | $B$ | $C$ |
+  | :----: | :-: | :-: | :-: |
+  | $1$ | $\large\frac{A}{1}$ | $\large\frac{B}{1}$ | $\large\frac{C}{1}$ |
+  | ... | ... | ... | ... |
+  | $n$ | $\large\frac{A}{n}$ | $\large\frac{B}{n}$ | $\large\frac{C}{n}$ |
+  
+  $\forall n \in \Bbb{Z}^+ : \\{\frac{A}{n}, \frac{B}{n}, \frac{C}{n}\\} \subset\Bbb{Z}^+$
 
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/c0189dff-2427-4bd4-8ba3-da2b77ebf013)
