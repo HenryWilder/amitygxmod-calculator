@@ -33,13 +33,13 @@ The number of active parameters also determines what operations are available in
 Zero parameters:  
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/aac15d9f-9a9c-42ec-8778-34819c83638e)
 
-One parameter (unary):  
+One parameter ([unary](#unary-results)):  
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/40feff8a-c2a3-447a-8022-116deb494607)
 
-Two parameters (binary):  
+Two parameters ([binary](#binary-results)):  
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/55e2310e-a8a3-414f-878e-209d7a4d18e3)
 
-Three parameters (ternary):  
+Three parameters ([ternary](#ternary-results)):  
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/90c6156a-e701-4648-9a86-372d71f23041)
 
 Entering a value into a parameter activates it, and makes the next parameter available. An available, but inactive parameter has a grayed-out label and the &empty; (empty set) placeholder.  
@@ -50,6 +50,7 @@ Entering a value into a parameter activates it, and makes the next parameter ava
 
 ## Run calculations (&fnof;) button
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/dda99129-6153-49cc-a9b4-3a03b6d7621e)
+<!-- todo: explain when the button is disabled -->
 
 ## Results section
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/7d319212-005f-4171-aa1d-be31f1f1fbc4)
@@ -57,16 +58,35 @@ Entering a value into a parameter activates it, and makes the next parameter ava
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/c45a7d29-beba-48d1-a97d-56a04893961f)
 
 The results section shows the results of each operation for the [parameters](#parameters) simultaneously.
+<!-- todo: explain colors -->
+<!-- todo: explain dashed outlines -->
 
 ### Unary results
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/7d319212-005f-4171-aa1d-be31f1f1fbc4)
-![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/ff1a049b-7977-41a7-b0ae-f3c0688074fc)
+
+Unary results disply all operations which can be performed on a single integer.
+Currently included are the following operations:
+- Quick Insights (name isn't final)
+  - Whether the number is **even** or **odd**
+  - Whether the number is **prime** or **composite**
+- Square ($A^{2}$)
+- Square root ($\sqrt{A}$) - Simplifies radical to exact value
+- Factors (set of positive integers that multiply to make $A$)
+
+![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/88457982-de86-48f3-89b0-9336d61d6b85)
+
 
 ### Binary results
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/d1ab1fc0-aada-4239-bf88-f238a98b0491)
-![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/1e6de33b-f201-4e57-8f96-1ca74013ac61)
+
+Binary results disply all operations which can be performed on a pair of integers.
+
+![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/a14b1912-8246-4442-a7ec-ff99ad83ae5b)
+
 
 ### Ternary results
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/c45a7d29-beba-48d1-a97d-56a04893961f)
-![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/0880c51f-27b2-4fa6-832a-fe1b975c46bd)
 
+Ternary results disply all operations which can be performed on a triplet of integers.
+
+![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/c0189dff-2427-4bd4-8ba3-da2b77ebf013)
