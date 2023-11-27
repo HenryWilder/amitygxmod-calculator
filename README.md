@@ -81,7 +81,14 @@ Currently included are the following operations:
   - Whether the number is **prime** or **composite**
 - Square $(A^{2})$
 - Square root $(\sqrt{A})$ &mdash; Simplifies radical to exact value
-- Factors (set of positive integers that multiply to make $A$)
+- Factors
+  | factor | $A$ |
+  | :----: | :-: |
+  | $1$ | $\large\frac{A}{1} \therefore A$ |
+  | ... | ... |
+  | $n$ | $\large\frac{A}{n}$ |
+  
+  $\forall n \in \Bbb{Z}^+ : \frac{A}{n} \in \Bbb{Z}^+$
 
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/88457982-de86-48f3-89b0-9336d61d6b85)
 
@@ -100,7 +107,14 @@ Currently included are the following operations:
 - Power $(A^{B})$
 - GCF (Greatest Common Factor)
 - LCM (Least Common Multiple)
-- Common factors (the set of positive integers that multiply by the $A$ column (second; red) to make $A$, and the $B$ column (third; blue) to make $B$)
+- Common factors
+  | factor | $A$ | $B$ |
+  | :----: | :-: | :-: |
+  | $1$ | $\large\frac{A}{1} \therefore A$ | $\large\frac{B}{1} \therefore B$ |
+  | ... | ... | ... |
+  | $n$ | $\large\frac{A}{n}$ | $\large\frac{B}{n}$ |
+  
+  $\forall n \in \Bbb{Z}^+ : \\{\frac{A}{n}, \frac{B}{n}\\} \subset \Bbb{Z}^+$
 
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/a14b1912-8246-4442-a7ec-ff99ad83ae5b)
 
@@ -124,10 +138,10 @@ Currently included are the following operations:
 - Common factors
   | factor | $A$ | $B$ | $C$ |
   | :----: | :-: | :-: | :-: |
-  | $1$ | $\large\frac{A}{1}$ | $\large\frac{B}{1}$ | $\large\frac{C}{1}$ |
+  | $1$ | $\large\frac{A}{1} \therefore A$ | $\large\frac{B}{1} \therefore B$ | $\large\frac{C}{1} \therefore C$ |
   | ... | ... | ... | ... |
   | $n$ | $\large\frac{A}{n}$ | $\large\frac{B}{n}$ | $\large\frac{C}{n}$ |
   
-  $\forall n \in \Bbb{Z}^+ : \\{\frac{A}{n}, \frac{B}{n}, \frac{C}{n}\\} \subset\Bbb{Z}^+$
+  $\forall n \in \Bbb{Z}^+ : \\{\frac{A}{n}, \frac{B}{n}, \frac{C}{n}\\} \subset \Bbb{Z}^+$
 
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/c0189dff-2427-4bd4-8ba3-da2b77ebf013)
