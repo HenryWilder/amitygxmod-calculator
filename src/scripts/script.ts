@@ -178,7 +178,7 @@ namespace Algebra {
     export const isNormalized = (v: number[]): boolean => Math.abs(sumOfSquares(v) - 1) <= 0.001;
 
     export const isPythagorean = (...values: number[]): boolean => {
-        const last = values[-1];
+        const last = values[values.length - 1];
 
         // a² + b² + c²      = 2c²
         // a² + b² + c² - c² = 2c² - c²
