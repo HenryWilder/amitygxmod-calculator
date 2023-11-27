@@ -30,16 +30,16 @@ The calculator section is made up of three elements:
 The parameters are a set of up to three numeric inputs. The number of parameters available is dependent on how many are filled in, or active.
 The number of active parameters also determines what operations are available in the [Results section](#results-section).
 
-Zero parameters:  
+0. Zero parameters:  
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/aac15d9f-9a9c-42ec-8778-34819c83638e)
 
-One parameter ([unary](#unary-results)):  
+1. One parameter ([unary](#unary-results)):  
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/40feff8a-c2a3-447a-8022-116deb494607)
 
-Two parameters ([binary](#binary-results)):  
+2. Two parameters ([binary](#binary-results)):  
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/55e2310e-a8a3-414f-878e-209d7a4d18e3)
 
-Three parameters ([ternary](#ternary-results)):  
+3. Three parameters ([ternary](#ternary-results)):  
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/90c6156a-e701-4648-9a86-372d71f23041)
 
 Entering a value into a parameter activates it, and makes the next parameter available. An available but inactive parameter has a grayed-out label and the &empty; (empty set) placeholder.  
@@ -52,7 +52,9 @@ Entering a value into a parameter activates it, and makes the next parameter ava
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/dda99129-6153-49cc-a9b4-3a03b6d7621e) _(enabled)_  
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/cd0e91af-ba3c-4fb7-83aa-fc744ff0a62b) _(disabled)_
 
-<!-- todo: explain when the button is disabled -->
+When there is a change to the parameters, the &fnof; button is enabled. Clicking it will refresh the [results](#results-section).
+
+The &fnof; button is only enabled when the current [parameters](#parameters) are not identical to what they when used to calculate the currently-displayed [results](#results-section).
 
 ## Results section
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/7d319212-005f-4171-aa1d-be31f1f1fbc4)
@@ -60,7 +62,13 @@ Entering a value into a parameter activates it, and makes the next parameter ava
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/c45a7d29-beba-48d1-a97d-56a04893961f)
 
 The results section shows the results of each operation for the [parameters](#parameters) simultaneously.
-<!-- todo: explain colors -->
+
+Wherever a [parameter](#parameters) appeares in the results section, it is colored to match that [parameter](#parameters)'s label. Results are shown in bold.  
+By default, the colors are as follow:
+- A: &#x1F7E5; Red
+- B: &#x1F7E6; Blue
+- C: &#x1F7E9; Green
+- [result]: &#x1F7E7; **Orange**
 <!-- todo: explain dashed outlines -->
 
 ### Unary results
