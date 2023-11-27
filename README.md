@@ -71,8 +71,8 @@ Currently included are the following operations:
 - Quick Insights (name isn't final)
   - Whether the number is **even** or **odd**
   - Whether the number is **prime** or **composite**
-- Square ($A^{2}$)
-- Square root ($\sqrt{A}$) - Simplifies radical to exact value
+- Square $(A^{2})$
+- Square root $(\sqrt{A})$ &mdash; Simplifies radical to exact value
 - Factors (set of positive integers that multiply to make $A$)
 
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/88457982-de86-48f3-89b0-9336d61d6b85)
@@ -83,16 +83,16 @@ Currently included are the following operations:
 
 Binary results disply all operations which can be performed on a pair of integers.
 Currently included are the following operations:
-- Comparison ($A \lt=\gt B$) (($A\lt{B};A=B;A\gt{B}$))
-- Sum ($A+B$)
-- Difference ($A-B$)
-- Product ($AB$)
-- Quotient ($\frac{A}{B}$)
-- Remainder ($A\mod{B}$)
-- Power ($A^{B}$)
+- Comparison $(A \lt=\gt B)$ ($(A\lt{B};A=B;A\gt{B})$)
+- Sum $(A+B)$
+- Difference $(A-B)$
+- Product $(AB)$
+- Quotient $(\frac{A}{B})$ &mdash; Simplifies fraction to exact value
+- Remainder $(A\bmod{B})$
+- Power $(A^{B})$
 - GCF (Greatest Common Factor)
 - LCM (Least Common Multiple)
-- Common factors (first column: set of positive integers that multiply by the second column (red) to make $A$, and the third column (blue) to make $B$)
+- Common factors (the set of positive integers that multiply by the $A$ column (second; red) to make $A$, and the $B$ column (third; blue) to make $B$)
 
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/a14b1912-8246-4442-a7ec-ff99ad83ae5b)
 
@@ -102,6 +102,17 @@ Currently included are the following operations:
 
 Ternary results disply all operations which can be performed on a triplet of integers.
 Currently included are the following operations:
-- 
+- Quick Insights (name isn't final)
+  - Whether the parameters are **normalized** or not
+  - Whether the parameters **compose a Pythagorean Triple** $(A^{2}+B^{2}=C^{2})$ or not
+- Vector definition $(\underline{v}=(A,B,C))$
+- Vector length $(|\underline{v}|)$ $((\sqrt{A^{2}+B^{2}+C^{2}}))$
+- Vector normal $(\underline{\hat v})$ $((\frac{\underline{v}}{|\underline{v}|}))$ $(((\frac{(A,B,C)}{\sqrt{A^{2}+B^{2}+C^{2}}})))$
+- Sum $(A+B+C)$
+- Product $(ABC)$
+- GCF (Greatest Common Factor)
+- LCM (Least Common Multiple)
+- Quadratic formula $(\frac{-B\pm\sqrt{B^{2}-4AC}}{2A})$ &mdash; **not yet implemented**
+- Common factors (the set of positive integers that multiply by the $A$ column (second; red) to make $A$, the $B$ column (third; blue) to make $B$, and the $C$ column (fourth; green) to make $C$)
 
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/c0189dff-2427-4bd4-8ba3-da2b77ebf013)
