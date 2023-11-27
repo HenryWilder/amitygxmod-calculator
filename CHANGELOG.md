@@ -73,6 +73,7 @@ Link will be changed to a specific version tag once no longer in pre-release.
 ## [v0.1.1-alpha](https://github.com/HenryWilder/amitygxmod-calculator/compare/v0.1-alpha...v0.1.1-alpha) - 2023-11-27
 ### Added
 - CHANGELOG.md
+- README.md
 ### Fixed
 - GCF always returning 1, which was also causing issues with simplifying fractions
 - Always displaying "not composing a Pythagorean Triple" even when parameters did compose a Pythagorean Triple - [`#6`](https://github.com/HenryWilder/amitygxmod-calculator/issues/6)
