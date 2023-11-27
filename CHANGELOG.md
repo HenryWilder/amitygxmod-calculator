@@ -74,7 +74,7 @@ Link will be changed to a specific version tag once no longer in pre-release.
 ### Added
 - CHANGELOG.md
 - README.md
-- Notes section textarea placeholder text
+- Notes section textarea placeholder text ("&fnof;(&xscr;) = &lbrace; &Sum;(&ascr;&xscr;&sup2; + &bscr;&xscr; + &cscr;)  &Sqrt;&xscr; &in; &Nopf;")
 ### Fixed
 - GCF always returning 1, which was also causing issues with simplifying fractions
 - Always displaying "not composing a Pythagorean Triple" even when parameters did compose a Pythagorean Triple - [`#6`](https://github.com/HenryWilder/amitygxmod-calculator/issues/6)
