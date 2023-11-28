@@ -6,7 +6,7 @@ The extension currently has two sections:
 2. [The calculator section](#the-calculator-section)
 
 # The notes section
-![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/88530bd4-71e2-4cc8-8b13-e71af0bda4e9)
+![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/1363b01f-820d-4c3e-b6ad-e490e27c5603)
 
 The notes section is a textarea for users to type notes into.
 Its only notable qualities are:
