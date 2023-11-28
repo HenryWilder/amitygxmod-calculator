@@ -89,7 +89,7 @@ Currently included are the following operations:
   | ... | ... |
   | $n$ | $\large\frac{A}{n}$ |
   
-  $\forall n \in \Bbb{Z}^+ : \frac{A}{n} \in \Bbb{Z}^+$
+  $\forall n \in \\{1,...,A\\} : \frac{A}{n} \in \Bbb{Z}^+$
 
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/88457982-de86-48f3-89b0-9336d61d6b85)
 
@@ -115,7 +115,7 @@ Currently included are the following operations:
   | ... | ... | ... |
   | $n$ | $\large\frac{A}{n}$ | $\large\frac{B}{n}$ |
   
-  $\forall n \in \Bbb{Z}^+ : \\{\frac{A}{n}, \frac{B}{n}\\} \subset \Bbb{Z}^+$
+  $\forall n \in \\{1,...,\displaystyle\min_{\\{A,B\\}}\\} : \\{\frac{A}{n}, \frac{B}{n}\\} \subset \Bbb{Z}^+$
 
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/a14b1912-8246-4442-a7ec-ff99ad83ae5b)
 
@@ -143,6 +143,6 @@ Currently included are the following operations:
   | ... | ... | ... | ... |
   | $n$ | $\large\frac{A}{n}$ | $\large\frac{B}{n}$ | $\large\frac{C}{n}$ |
   
-  $\forall n \in \Bbb{Z}^+ : \\{\frac{A}{n}, \frac{B}{n}, \frac{C}{n}\\} \subset \Bbb{Z}^+$
+  $\forall n \in \\{1,...,\displaystyle\min_{\\{A,B,C\\}}\\} : \\{\frac{A}{n}, \frac{B}{n}, \frac{C}{n}\\} \subset \Bbb{Z}^+$
 
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/c0189dff-2427-4bd4-8ba3-da2b77ebf013)
