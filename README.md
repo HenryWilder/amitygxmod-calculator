@@ -106,6 +106,7 @@ Currently included are the following operations:
 - Quotient $(\frac{A}{B})$ &mdash; Simplifies fraction to exact value
 - Remainder $(A\bmod{B})$
 - Power $(A^{B})$
+- Log $(\log_{A}B)$ <!-- todo: add image -->
 - GCF (Greatest Common Factor)
 - LCM (Least Common Multiple)
 - Common factors
