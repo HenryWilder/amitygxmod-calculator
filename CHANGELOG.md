@@ -70,7 +70,7 @@ Link will be changed to a specific version tag once no longer in pre-release.
   - Radicals (`number`&Sqrt;`number`)
   - Radical Fractions (`Radical`/`number`)
 
-## [v0.1.1-alpha](https://github.com/HenryWilder/amitygxmod-calculator/compare/v0.1-alpha...v0.1.1-alpha) - 2023-11-27
+## [v0.1.1-alpha](https://github.com/HenryWilder/amitygxmod-calculator/compare/v0.1-alpha...v0.1.1-alpha) - 2023-1_-__
 ### Added
 - CHANGELOG.md
 - README.md
