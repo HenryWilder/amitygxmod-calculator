@@ -426,7 +426,7 @@ const runCalculationsTernary = ([a, b, c]: number[]) => {
     setFactors(ternaryFactors, [a,b,c], Algebra.factors(a, b, c));
 };
 
-runCalculationsButton.addEventListener("click", () => {
+const runCalculations = () => {
     abcParamOptions.forEach(key => markParamsDirty(key, false));
     currentValues = [inputA, inputB, inputC].map(x => x.value).filter(value => value !== "");
     const currentNumValues = currentValues.map(value => Number(value));
@@ -438,4 +438,10 @@ runCalculationsButton.addEventListener("click", () => {
         case 2: runCalculationsBinary(currentNumValues); break;
         case 3: runCalculationsTernary(currentNumValues); break;
     }
+};
+
+runCalculationsButton.addEventListener("click", runCalculations);
+
+abcContainer.addEventListener("keypress", (event: KeyboardEvent) => {
+    if (event.key === "Enter") runCalculations();
 });
