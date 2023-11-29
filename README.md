@@ -56,6 +56,8 @@ When there is a change to the parameters, the &fnof; button is enabled. Clicking
 
 The &fnof; button is only enabled when the current [parameters](#parameters) are not identical to what they when used to calculate the currently-displayed [results](#results-section).
 
+Calculations can also be run by pressing enter while focusing any of the [parameters](#parameters).
+
 ## Results section
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/7d319212-005f-4171-aa1d-be31f1f1fbc4)
 ![image](https://github.com/HenryWilder/amitygxmod-calculator/assets/74995093/d1ab1fc0-aada-4239-bf88-f238a98b0491)
