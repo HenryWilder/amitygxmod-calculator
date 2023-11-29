@@ -86,3 +86,5 @@ Link will be changed to a specific version tag once no longer in pre-release.
 - Switched from v0.0 versioning to more standardized v0.0.0 versioning
 - Renamed `ternary-polynomial` to `ternary-quadratic`
 - Replaced `&equals;` with `=` to make HTML code more readable
+- Instances of `Infinity` now show "&infin;" instead
+- Instances of `NaN` now show "&NotExists;" instead

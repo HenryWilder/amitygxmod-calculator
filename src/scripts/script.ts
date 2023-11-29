@@ -204,29 +204,38 @@ namespace Algebra {
     }
 }
 
+const specialValuesToString = (num: number): string => {
+    if (isNaN(num)) return '∄';
+    switch (num) {
+        case Infinity: return '∞';
+        case -Infinity: return '-∞';
+        default: return num.toString();
+    }
+};
+
 const fractionToString = (frac: Algebra.Fraction): string =>
-    `${frac.numerator}/${frac.denominator}`;
+    `${specialValuesToString(frac.numerator)}/${specialValuesToString(frac.denominator)}`;
 
 const simplifiedFractionToString = (frac: Algebra.SimplifiedFraction): string =>
-    (typeof frac === "number") ? frac.toString() : fractionToString(frac);
+    (typeof frac === "number") ? specialValuesToString(frac) : fractionToString(frac);
 
 const mixedNumberToString = (mixed: Algebra.MixedNumber): string =>
-    `${mixed.iPart} ${fractionToString(mixed.fPart)}`;
+    `${specialValuesToString(mixed.iPart)} ${fractionToString(mixed.fPart)}`;
 
 const radicalToString = (rad: Algebra.Radical): string =>
-    (rad.coefficient !== 1 ? rad.coefficient : '') + `√${rad.radicand}`;
+    (rad.coefficient !== 1 ? rad.coefficient : '') + `√${specialValuesToString(rad.radicand)}`;
 
 const simplifiedRadicalToString = (rad: Algebra.SimplifiedRadical): string =>
-    (typeof rad === "number") ? rad.toString() : radicalToString(rad);
+    (typeof rad === "number") ? specialValuesToString(rad) : radicalToString(rad);
 
 const simplifiedRadicalFractionToString = (radFrac: Algebra.SimplifiedRadicalFraction): string => {
     if (typeof radFrac === "number") { // number
-        return radFrac.toString();
+        return specialValuesToString(radFrac);
     } else if (Algebra.isFractional(radFrac)) {
         if (Algebra.isFraction(radFrac)) { // Fraction
             return fractionToString(radFrac);
         } else { // RadicalFraction
-            return `(${radicalToString(radFrac.numerator)})/${radFrac.denominator}`;
+            return `(${radicalToString(radFrac.numerator)})/${specialValuesToString(radFrac.denominator)}`;
         }
     } else { // Radical
         return radicalToString(radFrac);
@@ -257,7 +266,7 @@ const resultsUnary = assertiveGetElementById<HTMLDivElement>("results-unary");
 const unaryOperations = ["quick-insights", "square", "sqrt"] as const;
 const unaryResults = Object.fromEntries(unaryOperations.map(what => [what, assertiveGetElementById<HTMLOutputElement>(`unary-${what}`)]));
 type UnaryOperation = typeof unaryOperations[number];
-const setUnaryResult = (op: UnaryOperation, value: string | number) => unaryResults[op].value = value.toString();
+const setUnaryResult = (op: UnaryOperation, value: string | number) => unaryResults[op].value = (typeof value === "number") ? specialValuesToString(value) : value;
 unaryOperations.forEach((op) => setUnaryResult(op, '?'));
 const unaryFactors = assertiveGetElementById<HTMLElement>("unary-factors");
 
@@ -265,7 +274,7 @@ const resultsBinary = assertiveGetElementById<HTMLDivElement>("results-binary");
 const binaryOperations = ["comp", "sum", "diff", "prod", "div", "rem", "pow", "log", "gcf", "lcm"] as const;
 const binaryResults = Object.fromEntries(binaryOperations.map(what => [what, assertiveGetElementById<HTMLOutputElement>(`binary-${what}`)]));
 type BinaryOperation = typeof binaryOperations[number];
-const setBinaryResult = (op: BinaryOperation, value: string | number) => binaryResults[op].value = value.toString();
+const setBinaryResult = (op: BinaryOperation, value: string | number) => binaryResults[op].value = (typeof value === "number") ? specialValuesToString(value) : value;
 binaryOperations.forEach((op) => setBinaryResult(op, '?'));
 const binaryFactors = assertiveGetElementById<HTMLElement>("binary-common-factors");
 
@@ -273,7 +282,7 @@ const resultsTernary = assertiveGetElementById<HTMLDivElement>("results-ternary"
 const ternaryOperations = ["quick-insights", "vector", "vector-length", "vector-normal", "sum", "prod", "gcf", "lcm", "quadratic"] as const;
 const ternaryResults = Object.fromEntries(ternaryOperations.map(what => [what, assertiveGetElementById<HTMLOutputElement>(`ternary-${what}`)]));
 type TernaryOperation = typeof ternaryOperations[number];
-const setTernaryResult = (op: TernaryOperation, value: string | number) => ternaryResults[op].value = value.toString();
+const setTernaryResult = (op: TernaryOperation, value: string | number) => ternaryResults[op].value = (typeof value === "number") ? specialValuesToString(value) : value;
 ternaryOperations.forEach((op) => setTernaryResult(op, '?'));
 const ternaryFactors = assertiveGetElementById<HTMLElement>("ternary-common-factors");
 
