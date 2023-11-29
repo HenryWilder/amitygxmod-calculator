@@ -8,8 +8,9 @@ namespace Algebra {
     export const product    = (...values: number[]): number => values.reduce((prev, x) => prev * x, 1);
     export const remainder  = (numerator: number, denominator: number): number => numerator % denominator;
 
-    export const power = (base: number, exponent: number): number => Math.pow(base, exponent);
-    export const root = (value: number, base: number): number => Math.pow(value, 1/base);
+    export const power = (base:  number, exponent: number): number => Math.pow(base, exponent);
+    export const root  = (value: number, base:     number): number => Math.pow(value, 1/base);
+    export const log   = (base:  number, argument: number): number => Math.log(argument) / Math.log(base);
 
     export const gcf = (...values: number[]): number => {
         console.group(`Performing GCF on [${values.join(', ')}]`);
@@ -46,6 +47,11 @@ namespace Algebra {
     }
     export type SimplifiedFraction = Fraction | number;
 
+    export interface MixedNumber {
+        iPart: number;
+        fPart: Fraction;
+    }
+
     export interface Radical {
         coefficient: number;
         radicand: number;
@@ -62,10 +68,10 @@ namespace Algebra {
     export const isFraction = (x: Fraction | RadicalFraction): x is Fraction => typeof x.numerator === "number";
 
     export const fraction = (numerator: number, denominator: number): SimplifiedFraction => {
-        if (denominator == 0) return Infinity;
+        if (denominator === 0) return Infinity;
         if (numerator % denominator === 0) return numerator / denominator;
 
-        const sign = (numerator < 0 != denominator < 0) ? -1 : 1;
+        const sign = (numerator < 0 !== denominator < 0) ? -1 : 1;
 
         const numeratorAbs   = Math.abs(numerator);
         const denominatorAbs = Math.abs(denominator);
@@ -77,6 +83,17 @@ namespace Algebra {
         };
         console.log("fracGCF: " + fracGCF);
         return frac;
+    };
+
+    /** @returns If fraction has no whole number part, returns undefined. */
+    export const mixedNumber = (frac: Fraction): MixedNumber | undefined => {
+        if (frac.denominator === 0 || Math.abs(frac.denominator) > Math.abs(frac.numerator)) return undefined;
+        const remainder: number = frac.numerator % frac.denominator;
+        if (remainder === 0) return undefined;
+        const wholeNumerator: number = frac.numerator - remainder;
+        const iPart: number = wholeNumerator / frac.denominator;
+        const fPart: Fraction = fraction(remainder, frac.denominator) as Fraction; // remainder being zero implies that the fraction part exists
+        return { iPart, fPart };
     };
 
     // mx²
@@ -193,6 +210,9 @@ const fractionToString = (frac: Algebra.Fraction): string =>
 const simplifiedFractionToString = (frac: Algebra.SimplifiedFraction): string =>
     (typeof frac === "number") ? frac.toString() : fractionToString(frac);
 
+const mixedNumberToString = (mixed: Algebra.MixedNumber): string =>
+    `${mixed.iPart} ${fractionToString(mixed.fPart)}`;
+
 const radicalToString = (rad: Algebra.Radical): string =>
     (rad.coefficient !== 1 ? rad.coefficient : '') + `√${rad.radicand}`;
 
@@ -242,7 +262,7 @@ unaryOperations.forEach((op) => setUnaryResult(op, '?'));
 const unaryFactors = assertiveGetElementById<HTMLElement>("unary-factors");
 
 const resultsBinary = assertiveGetElementById<HTMLDivElement>("results-binary");
-const binaryOperations = ["comp", "sum", "diff", "prod", "div", "rem", "pow", "gcf", "lcm"] as const;
+const binaryOperations = ["comp", "sum", "diff", "prod", "div", "rem", "pow", "log", "gcf", "lcm"] as const;
 const binaryResults = Object.fromEntries(binaryOperations.map(what => [what, assertiveGetElementById<HTMLOutputElement>(`binary-${what}`)]));
 type BinaryOperation = typeof binaryOperations[number];
 const setBinaryResult = (op: BinaryOperation, value: string | number) => binaryResults[op].value = value.toString();
@@ -365,9 +385,17 @@ const runCalculationsBinary = ([a, b]: number[]) => {6
     setBinaryResult("sum", Algebra.sum(a, b));
     setBinaryResult("diff", Algebra.difference(a, b));
     setBinaryResult("prod", Algebra.product(a, b));
-    setBinaryResult("div", simplifiedFractionToString(Algebra.fraction(a, b)));
+    // Division
+    {
+        const frac  = Algebra.fraction(a, b);
+        let divResult = simplifiedFractionToString(frac);
+        const mixed = Algebra.isFractional(frac) ? Algebra.mixedNumber(frac) : undefined;
+        if (mixed !== undefined) divResult += " or " + mixedNumberToString(mixed);
+        setBinaryResult("div", divResult);
+    }
     setBinaryResult("rem", Algebra.remainder(a, b));
     setBinaryResult("pow", Algebra.power(a, b));
+    setBinaryResult("log", Algebra.log(a, b));
     setBinaryResult("gcf", Algebra.gcf(a, b));
     setBinaryResult("lcm", Algebra.lcm(a, b));
     setFactors(binaryFactors, [a,b], Algebra.factors(a, b));
