@@ -79,6 +79,7 @@ Link will be changed to a specific version tag once no longer in pre-release.
 - Added log operation to binary results - currently returns decimal
 - Comments to panel HTML
 - Pressing enter in the parameters performs the same action as pressing the &fnof; button - [`#16`](https://github.com/HenryWilder/amitygxmod-calculator/issues/16)
+- Small amount of extra space between results (not yet configurable) - [`#8`](https://github.com/HenryWilder/amitygxmod-calculator/issues/8)
 ### Fixed
 - GCF always returning 1, which was also causing issues with simplifying fractions
 - Always displaying "not composing a Pythagorean Triple" even when parameters did compose a Pythagorean Triple - [`#6`](https://github.com/HenryWilder/amitygxmod-calculator/issues/6)

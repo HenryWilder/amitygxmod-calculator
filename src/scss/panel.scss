@@ -1,5 +1,9 @@
 @use 'sass:list';
 
+.hidden {
+    display: none;
+}
+
 @function opera-gx($what, $comp) {
     @return env(-opera-gx-#{$what}-color-#{$comp});
 }
@@ -95,21 +99,24 @@ button {
     }
 }
 
-input,
-textarea {
-    font-family: monospace;
-}
-
-textarea#notes-section {
+#notes-section {
     resize: vertical;
+    min-height: 2.5rem;
 }
 
-label:has(>input:placeholder-shown) {
+label {
 
-    &.a,
-    &.b,
-    &.c {
-        color: gray;
+    &:has(>input:placeholder-shown) {
+
+        &.a,
+        &.b,
+        &.c {
+            color: gray;
+        }
+    }
+
+    &:has(textarea, input, button) {
+        font-weight: bold;
     }
 }
 
@@ -124,10 +131,6 @@ button:not(:disabled) {
     &:active {
         background-color: opera-gx-mix("accent", 75%);
     }
-}
-
-#notes-section {
-    min-height: 2.5rem;
 }
 
 @mixin flex-container($direction: null, $wrap: null) {
@@ -155,21 +158,9 @@ button:not(:disabled) {
     @include flex-container(column);
 }
 
-label:has(textarea, input, button) {
-    font-weight: bold;
-}
-
-.hidden {
-    display: none;
-}
-
 .result {
     color: $result-color;
     font-weight: bold;
-}
-
-#results-container label {
-    display: block;
 }
 
 .dirty {
@@ -181,6 +172,16 @@ label:has(textarea, input, button) {
         family: monospace;
         size: large;
     }
+
+    label {
+        $half-gap: 0.25rem;
+        display: block;
+
+        margin: {
+            top: $half-gap;
+            bottom: $half-gap;
+        }
+    }
 }
 
 table.result[id$="-factors"] {
@@ -191,17 +192,7 @@ table.result[id$="-factors"] {
         spacing: 2px;
     }
 
-    th,
-    td {
-        border: 1px solid opera-gx-mix("background", 1, 5);
-        text-align: right;
-        padding: 1px 1ch;
-    }
-
-    th {
-        background-color: opera-gx-mix("background", 1, 2);
-    }
-
+    background-color: rgb($foreground-color, 50%);
 
     @mixin themed-param-background($color-light, $color-dark, $opacity) {
         @media (prefers-color-scheme: light) {
@@ -215,7 +206,15 @@ table.result[id$="-factors"] {
         }
     }
 
+    th,
+    td {
+        border: 1px solid opera-gx-mix("background", 1, 5);
+        text-align: right;
+        padding: 1px 1ch;
+    }
+
     th {
+        background-color: opera-gx-mix("background", 1, 2);
 
         @for $n from 2 through 4 {
             &:nth-child(#{$n}) {
@@ -236,10 +235,8 @@ table.result[id$="-factors"] {
             }
         }
 
-        color: $foreground-color;
+        color: $foreground-color; // After applying theme
     }
-
-    background-color: rgb($foreground-color, 50%);
 
     tr:first-child th:first-child {
         background-color: transparent;
