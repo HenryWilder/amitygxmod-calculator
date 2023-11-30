@@ -167,17 +167,26 @@ button:not(:disabled) {
         left: 0;
         top: 0;
         right: 0;
-        height: 2rem;
+        min-height: 1.75rem;
+        padding-top: 0.75rem;
 
         margin: {
             top: $half-gap;
             bottom: $half-gap;
         }
+
+        // &:not(:last-child) {
+        //     border-bottom: 1px solid $opera-gx-accent-color;
+        // }
     }
 }
 
 .result {
     color: $result-color;
+
+    hr {
+        border-color: $result-color;
+    }
 }
 
 .dirty {
@@ -260,8 +269,6 @@ span.column {
 
     & > hr {
         width: 100%;
-        border-color: $result-color;
-
         margin: 0;
     }
 }
