@@ -1,9 +1,5 @@
 @use 'sass:list';
 
-.hidden {
-    display: none;
-}
-
 @function opera-gx($what, $comp) {
     @return env(-opera-gx-#{$what}-color-#{$comp});
 }
@@ -144,7 +140,7 @@ button:not(:disabled) {
 
     // Whatever contains each input
     & > label {
-        width: 7ch;
+        width: 10ch;
     }
 }
 
@@ -158,30 +154,34 @@ button:not(:disabled) {
     @include flex-container(column);
 }
 
-.result {
-    color: $result-color;
-    font-weight: bold;
-}
-
-.dirty {
-    outline: 1px dashed gray;
-}
-
 #results-container {
     font: {
-        family: monospace;
-        size: large;
+        family: sans-serif;
+        size: medium;
     }
 
     label {
-        $half-gap: 0.25rem;
+        $half-gap: 0.5rem;
         display: block;
+        position: relative;
+        left: 0;
+        top: 0;
+        right: 0;
+        height: 2rem;
 
         margin: {
             top: $half-gap;
             bottom: $half-gap;
         }
     }
+}
+
+.result {
+    color: $result-color;
+}
+
+.dirty {
+    outline: 1px dashed gray;
 }
 
 table.result[id$="-factors"] {
@@ -242,4 +242,53 @@ table.result[id$="-factors"] {
         background-color: transparent;
         border: none;
     }
+}
+
+@mixin span-column {
+    display: inline-flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+span.column {
+    @include span-column;
+}
+
+.fraction,
+.radical > span {
+    @include span-column;
+
+    & > hr {
+        width: 100%;
+        border-color: $result-color;
+
+        margin: 0;
+    }
+}
+
+.fraction {
+    position: relative;
+    top: -0.5rem;
+}
+
+.hat {
+    @include span-column;
+
+    & > :nth-child(2) {
+        margin-top: -1rem;
+    }
+}
+
+.radical {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+
+    & > span > hr {
+        margin-top: -2px;
+    }
+}
+
+.hidden {
+    display: none;
 }

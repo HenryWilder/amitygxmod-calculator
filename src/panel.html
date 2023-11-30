@@ -1,6 +1,7 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="./css/panel.css">
+    <!-- Panel script -->
     <script src="./scripts/panel.js" defer></script>
   </head>
   <body>
@@ -37,88 +38,85 @@
         <!-- Unary -->
         <div id="results-unary" class="hidden">
           <label>
-            <output class="param a"></output> is
+            <span class="expr"><output class="param a"></output> is</span>
             <output class="result" id="unary-quick-insights"></output>
           </label>
           <label>
-            <output class="param a"></output>&sup2; =
+            <span class="expr"><output class="param a"></output>&sup2; =</span>
             <output class="result" id="unary-square"></output>
           </label>
           <label>
-            &Sqrt;<output class="param a"></output> =
+            <span class="expr">&Sqrt;<output class="param a"></output> =</span>
             <output class="result" id="unary-sqrt"></output>
           </label>
           <label>
-            factors of <output class="param a"></output>:
+            <span class="expr">factors of <output class="param a"></output>:</span>
             <table class="result" id="unary-factors"></table>
           </label>
         </div>
         <!-- Binary -->
         <div id="results-binary" class="hidden">
-          <label>
-            <output class="result" id="binary-compare"></output>
-          </label>
           <label><output class="param a"></output> <output class="result" id="binary-comp"></output> <output class="param b"></output></label>
-          <label><output class="param a"></output> &plus;    <output class="param b"></output> = <output class="result" id="binary-sum"></output></label>
-          <label><output class="param a"></output> &minus;   <output class="param b"></output> = <output class="result" id="binary-diff"></output></label>
-          <label><output class="param a"></output> &times;   <output class="param b"></output> = <output class="result" id="binary-prod"></output></label>
-          <label><output class="param a"></output> &divide;  <output class="param b"></output> = <output class="result" id="binary-div"></output></label>
-          <label><output class="param a"></output> &percnt;  <output class="param b"></output> = <output class="result" id="binary-rem"></output></label>
-          <label><output class="param a"></output><sup><output class="param b"></output></sup> = <output class="result" id="binary-pow"></output></label>
-          <label>log<sub><output class="param a"></output></sub><output class="param b"></output> => <output class="param b"></output> = <output class="param a"></output><sup><output class="result" id="binary-log"></output></sup></label>
+          <label><span class="expr"><output class="param a"></output> &plus;    <output class="param b"></output> = </span><output class="result" id="binary-sum"></output></label>
+          <label><span class="expr"><output class="param a"></output> &minus;   <output class="param b"></output> = </span><output class="result" id="binary-diff"></output></label>
+          <label><span class="expr"><output class="param a"></output> &times;   <output class="param b"></output> = </span><output class="result" id="binary-prod"></output></label>
+          <label><span class="expr"><output class="param a"></output> &divide;  <output class="param b"></output> = </span><output class="result" id="binary-div"></output></label>
+          <label><span class="expr"><output class="param a"></output> &percnt;  <output class="param b"></output> = </span><output class="result" id="binary-rem"></output></label>
+          <label><span class="expr"><output class="param a"></output><sup><output class="param b"></output></sup> = </span><output class="result" id="binary-pow"></output></label>
+          <label><span class="expr">log<sub><output class="param a"></output></sub><output class="param b"></output> &Implies; <output class="param b"></output> = </span><output class="param a"></output><sup><output class="result" id="binary-log"></output></sup></label>
           <label>
-            gcf of <output class="param a"></output> and <output class="param b"></output> =
+            <span class="expr">gcf of <output class="param a"></output> and <output class="param b"></output> = </span>
             <output class="result" id="binary-gcf"></output>
           </label>
           <label>
-            lcm of <output class="param a"></output> and <output class="param b"></output> =
+            <span class="expr">lcm of <output class="param a"></output> and <output class="param b"></output> = </span>
             <output class="result" id="binary-lcm"></output>
           </label>
           <label>
-            common factors of <output class="param a"></output> and <output class="param b"></output>:
+            <span class="expr">common factors of <output class="param a"></output> and <output class="param b"></output>:</span>
             <table class="result" id="binary-common-factors"></table>
           </label>
         </div>
         <!-- Ternary -->
         <div id="results-ternary" class="hidden">
           <label>
-            <output class="param a"></output>, <output class="param b"></output> and <output class="param c"></output> are
+            <span class="expr"><output class="param a"></output>, <output class="param b"></output> and <output class="param c"></output> are </span>
             <output class="result" id="ternary-quick-insights"></output>
           </label>
           <label>
-            &nbsp;<u>&vscr;</u>&nbsp;&nbsp;=
+            <span class="expr"><u>&vscr;</u> = </span>
             <output class="result" id="ternary-vector"></output>
           </label>
           <label>
-            |<u>&vscr;</u>| =
+            <span class="expr">|<u>&vscr;</u>| = </span>
             <output class="result" id="ternary-vector-length"></output>
           </label>
           <label>
-            &nbsp;<u>&#770;&vscr;</u>&nbsp;&nbsp;=
+            <span class="expr"><span class="hat"><span>&Hat;</span><span><u>&vscr;</u></span></span> = </span>
             <output class="result" id="ternary-vector-normal"></output>
           </label>
           <label>
-            &Sum;(<output class="param a"></output>, <output class="param b"></output>, <output class="param c"></output>) =
+            <span class="expr">&Sum;(<output class="param a"></output>, <output class="param b"></output>, <output class="param c"></output>) = </span>
             <output class="result" id="ternary-sum"></output>
           </label>
           <label>
-            &Product;(<output class="param a"></output>, <output class="param b"></output>, <output class="param c"></output>) =
+            <span class="expr">&Product;(<output class="param a"></output>, <output class="param b"></output>, <output class="param c"></output>) = </span>
             <output class="result" id="ternary-prod"></output>
           </label>
           <label>
-            gcf of <output class="param a"></output>, <output class="param b"></output> and <output class="param c"></output> =
+            <span class="expr">gcf of <output class="param a"></output>, <output class="param b"></output> and <output class="param c"></output> = </span>
             <output class="result" id="ternary-gcf"></output>
           </label>
           <label>
-            lcm of <output class="param a"></output>, <output class="param b"></output> and <output class="param c"></output> =
+            <span class="expr">lcm of <output class="param a"></output>, <output class="param b"></output> and <output class="param c"></output> = </span>
             <output class="result" id="ternary-lcm"></output>
           </label>
           <label>
-            <output class="param a"></output>&xscr;&sup2; &plus; <output class="param b"></output>&xscr; &plus; <output class="param c"></output> = 0; &xscr; =
+            <span class="expr"><output class="param a"></output>&xscr;&sup2; &plus; <output class="param b"></output>&xscr; &plus; <output class="param c"></output> = 0; &xscr; = </span>
             <output class="result" id="ternary-quadratic"></output>
           </label>
           <label>
-            common factors of <output class="param a"></output>, <output class="param b"></output> and <output class="param c"></output>:
+            <span class="expr">common factors of <output class="param a"></output>, <output class="param b"></output> and <output class="param c"></output>:</span>
             <table class="result" id="ternary-common-factors"></table>
           </label>
         </div>
