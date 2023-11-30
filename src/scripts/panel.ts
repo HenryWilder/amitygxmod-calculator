@@ -284,7 +284,7 @@ unaryOperations.forEach((op) => setUnaryResult(op, '?'));
 const unaryFactors = assertiveGetElementById<HTMLElement>("unary-factors");
 
 const resultsBinary = assertiveGetElementById<HTMLDivElement>("results-binary");
-const binaryOperations = ["comp", "sum", "diff", "prod", "div", "rem", "pow", "log", "gcf", "lcm"] as const;
+const binaryOperations = ["comp", "sum", "diff", "prod", "div", "rem", "pow", "log"] as const;
 const binaryResults = Object.fromEntries(binaryOperations.map(what => [what, assertiveGetElementById<HTMLOutputElement>(`binary-${what}`)]));
 type BinaryOperation = typeof binaryOperations[number];
 const setBinaryResult = (op: BinaryOperation, value: string | number) => binaryResults[op].innerHTML = stringOrNumberToString(value);
@@ -292,7 +292,7 @@ binaryOperations.forEach((op) => setBinaryResult(op, '?'));
 const binaryFactors = assertiveGetElementById<HTMLElement>("binary-common-factors");
 
 const resultsTernary = assertiveGetElementById<HTMLDivElement>("results-ternary");
-const ternaryOperations = ["quick-insights", "vector", "vector-length", "vector-normal", "sum", "prod", "gcf", "lcm", "quadratic"] as const;
+const ternaryOperations = ["quick-insights", "vector", "vector-length", "vector-normal", "sum", "prod", "quadratic"] as const;
 const ternaryResults = Object.fromEntries(ternaryOperations.map(what => [what, assertiveGetElementById<HTMLOutputElement>(`ternary-${what}`)]));
 type TernaryOperation = typeof ternaryOperations[number];
 const setTernaryResult = (op: TernaryOperation, value: string | number) => ternaryResults[op].innerHTML = stringOrNumberToString(value);
