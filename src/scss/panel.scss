@@ -247,10 +247,45 @@ table.result[id$="-factors"] {
         color: $foreground-color; // After applying theme
     }
 
-    tr:first-child th:first-child,
-    tr:last-child td:last-child {
+    @mixin blank-cell {
         background-color: transparent;
         border: none;
+    }
+
+    tr:first-child th:first-child {
+        @include blank-cell;
+        background-color: transparent;
+        border: none;
+    }
+
+    $ghost-color: gray;
+
+    tr.lcm-row,
+    tr.gcf-row {
+        $border-style: 1px solid $ghost-color;
+
+        td:last-child {
+            @include blank-cell;
+            color: $ghost-color;
+
+            border: {
+                top: $border-style;
+                bottom: $border-style;
+            }
+        }
+    }
+
+    tr.spacer-row {
+        td {
+            @include blank-cell();
+            padding: 0.25ch 0;
+
+            hr {
+                margin: 0;
+                width: 100%;
+                border-color: $ghost-color;
+            }
+        }
     }
 }
 

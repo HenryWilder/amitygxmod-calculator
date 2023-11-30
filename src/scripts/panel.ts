@@ -320,7 +320,7 @@ const setParamsValues = (key: ABCParam, value: string) => {
 
 abcParamOptions.forEach(key => setParamsValues(key, key.toUpperCase()));
 
-const setFactors = (element: HTMLElement, header: number[], factors: Algebra.FactorSet) => {
+const setFactors = (element: HTMLElement, header: number[], factors: Algebra.FactorSet, lcm?: number) => {
     element.innerHTML = "";
 
     // Header row
@@ -341,21 +341,71 @@ const setFactors = (element: HTMLElement, header: number[], factors: Algebra.Fac
         }
     }
 
-    for (const factor of factors) {
-        const [fac, parts] = factor;
-        const row = document.createElement('tr');
-        element.appendChild(row);
+    // Factors
+    {
+        let lastFactorRow: HTMLTableRowElement;
 
-        const factorCell = document.createElement('th');
-        row.appendChild(factorCell);
-        factorCell.innerText = `${fac}`;
-        factorCell.classList.add("result");
+        for (const [fac, parts] of factors) {
+            const row = document.createElement('tr');
+            lastFactorRow = row;
+            element.appendChild(row);
 
-        for (let i = 0; i < parts.length; ++i) {
+            const factorCell = document.createElement('th');
+            row.appendChild(factorCell);
+            factorCell.innerText = `${fac}`;
+            factorCell.classList.add("result");
+
+            for (let i = 0; i < parts.length; ++i) {
+                const cell = document.createElement('td');
+                row.appendChild(cell);
+                cell.innerHTML = `${parts[i]}`;
+            }
+        }
+
+        // GCF
+        if (lcm !== undefined) {
+            lastFactorRow!.classList.add('gcf-row');
+            const gcfNote = document.createElement('td');
+            lastFactorRow!.appendChild(gcfNote);
+            gcfNote.innerHTML = `gcf = ${factors.at(-1)![0]}`;
+        }
+    }
+
+    // LCM row
+    if (lcm !== undefined)
+    {
+        // Spacer
+        {
+            const row = document.createElement('tr');
+            element.appendChild(row);
+            row.classList.add('spacer-row');
+
             const cell = document.createElement('td');
             row.appendChild(cell);
-            cell.innerHTML = `${parts[i]}`;
+            cell.colSpan = 9999;
+
+            // const horizontalRule = document.createElement('hr');
+            // cell.appendChild(horizontalRule);
         }
+
+        const row = document.createElement('tr');
+        element.appendChild(row);
+        row.classList.add('lcm-row');
+
+        const lcmCell = document.createElement('th');
+        row.appendChild(lcmCell);
+        lcmCell.innerText = lcm.toString();
+        lcmCell.classList.add("result");
+
+        for (const part of [...factors[0][1]]) {
+            const cell = document.createElement('td');
+            row.appendChild(cell);
+            cell.innerText = (lcm / part).toString();
+        }
+
+        const lcmNote = document.createElement('td');
+        row!.appendChild(lcmNote);
+        lcmNote.innerHTML = `lcm = ${lcm}`;
     }
 }
 
@@ -418,9 +468,7 @@ const runCalculationsBinary = ([a, b]: number[]) => {6
     setBinaryResult("rem", Algebra.remainder(a, b));
     setBinaryResult("pow", Algebra.power(a, b));
     setBinaryResult("log", Algebra.log(a, b));
-    setBinaryResult("gcf", Algebra.gcf(a, b));
-    setBinaryResult("lcm", Algebra.lcm(a, b));
-    setFactors(binaryFactors, [a,b], Algebra.factors(a, b));
+    setFactors(binaryFactors, [a,b], Algebra.factors(a, b), Algebra.lcm(a, b));
 };
 
 const runCalculationsTernary = ([a, b, c]: number[]) => {
@@ -434,9 +482,7 @@ const runCalculationsTernary = ([a, b, c]: number[]) => {
     setTernaryResult("vector-normal", `(${Algebra.vectorNormal(v).map(simplifiedRadicalFractionToString).join(', ')})`);
     setTernaryResult("sum", Algebra.sum(a,b,c));
     setTernaryResult("prod", Algebra.product(a,b,c));
-    setTernaryResult("gcf", Algebra.gcf(a,b,c));
-    setTernaryResult("lcm", Algebra.lcm(a,b,c));
-    setFactors(ternaryFactors, [a,b,c], Algebra.factors(a, b, c));
+    setFactors(ternaryFactors, [a,b,c], Algebra.factors(a, b, c), Algebra.lcm(a, b, c));
 };
 
 const runCalculations = () => {
