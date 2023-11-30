@@ -71,6 +71,7 @@ By default, the colors are as follow:
 - B: &#x1F7E6; Blue
 - C: &#x1F7E9; Green
 - [result]: &#x1F7E7; **Orange**
+<!-- todo: change from emojis to the hex squares used in amitygxmod -->
 
 When a [parameter](#parameters) changes, all instances of references to it in the results section are boxed in a gray, dashed outline to show what inputs of the calculation will be affected by the change. If it changes back to what it was when used to calculate the currently-displayed results, the outline disappears.
 
