@@ -93,3 +93,4 @@ Link will be changed to a specific version tag once no longer in pre-release.
 - Instances of `Infinity` now show "&infin;" instead
 - Instances of `NaN` now show "&NotExists;" instead
 - Renamed "script.ts" to "panel.ts" to prevent confusion with "options.ts"
+- Moved LCM and GCF into the factors table
