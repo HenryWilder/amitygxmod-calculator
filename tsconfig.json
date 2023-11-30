@@ -9,6 +9,7 @@
     "outDir": "dist",
     "noEmitOnError": true,
     "typeRoots": [ "node_modules/@types" ],
-    "lib": ["ESNext", "DOM"]
+    "lib": ["ESNext", "DOM"],
+    "types": ["chrome"]
   }
 }

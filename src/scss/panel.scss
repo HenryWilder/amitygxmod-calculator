@@ -247,7 +247,8 @@ table.result[id$="-factors"] {
         color: $foreground-color; // After applying theme
     }
 
-    tr:first-child th:first-child {
+    tr:first-child th:first-child,
+    tr:last-child td:last-child {
         background-color: transparent;
         border: none;
     }
