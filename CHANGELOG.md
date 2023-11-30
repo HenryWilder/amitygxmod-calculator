@@ -85,7 +85,6 @@ Link will be changed to a specific version tag once no longer in pre-release.
 ### Fixed
 - GCF always returning 1, which was also causing issues with simplifying fractions
 - Always displaying "not composing a Pythagorean Triple" even when parameters did compose a Pythagorean Triple - [`#6`](https://github.com/HenryWilder/amitygxmod-calculator/issues/6)
-- Poor communication for quadratic - [`#12`](https://github.com/HenryWilder/amitygxmod-calculator/issues/12)
 ### Changed
 - Switched from v0.0 versioning to more standardized v0.0.0 versioning
 - Renamed `ternary-polynomial` to `ternary-quadratic`
@@ -94,3 +93,4 @@ Link will be changed to a specific version tag once no longer in pre-release.
 - Instances of `NaN` now show "&NotExists;" instead
 - Renamed "script.ts" to "panel.ts" to prevent confusion with "options.ts"
 - Moved LCM and GCF into the factors table
+- Rewrote quadratic operation expression - [`#12`](https://github.com/HenryWilder/amitygxmod-calculator/issues/12)
